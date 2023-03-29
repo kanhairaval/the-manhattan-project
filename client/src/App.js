@@ -1,16 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
-import Header from "./Navbar";
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import SignUp from "./components/form";
-import Profile from './pages/Profile';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider, 
+    createHttpLink,
+  } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import Header from "./components/Navbar";
+// import Footer from './components/Footer';
+import Login from './components/Login';
+import Register from "./components/Register";
+// import Profile from './pages/Profile';
+// import Home from './pages/Home';
 
 
-const httpLink = HttpLink({
+const httpLink = createHttpLink({
     uri: '/graphql',
     credentials: 'same-origin'
 });
@@ -36,13 +41,13 @@ function App() {
             <Router>
                 <div>
                     <Header />
-                    <Switch>
-                        <Route exact path="/" component={Home} />
+                    <Routes>
                         <Route exact path="/login" component={Login} />
-                        <Route exact path="/signup" component={Signup} />
-                        <Route exact path="/profile" component={Profile} />
-                    </Switch>
-                    <Footer />
+                        <Route exact path="/register" component={Register} />
+                        {/* <Route exact path="/profile" component={Profile} /> */}
+                        {/* <Route exact path="/" component={Home} /> */}
+                    </Routes>
+                    {/* <Footer /> */}
                 </div>
             </Router>
         </ApolloProvider>

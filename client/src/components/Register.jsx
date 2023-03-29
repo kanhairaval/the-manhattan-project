@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import {Form, Button} from "react-bootstrap";
 
-export const Register = (props) => {
+import { useMutation} from "@apollo/client";
+import { REGISTER_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
+
+const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');  
@@ -25,4 +30,6 @@ export const Register = (props) => {
      </div>
     )
      
-    }
+}
+
+export default Register;
