@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Register } from "./Register";
+import {Form, Button} from "react-bootstrap";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
-export const Login = (props) => {
+const Login = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
@@ -26,3 +30,5 @@ export const Login = (props) => {
 
     )
 }
+
+export default Login;
