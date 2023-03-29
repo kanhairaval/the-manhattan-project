@@ -4,16 +4,18 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "watch": "nodemon server.js"
+    "start": "node server/server.js",
+    "watch": "nodemon server/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^3.9.0",
+    "apollo-server-express": "^3.12.0",
     "bcrypt": "^5.0.0",
+    "cjs": "^0.0.11",
     "express": "^4.17.1",
+    "express-validator": "^6.15.0",
     "graphql": "^16.5.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.9.10"
@@ -25,4 +27,3 @@
     "node": "16.x"
   }
 }
-
