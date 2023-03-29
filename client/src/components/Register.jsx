@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {Form, Button} from "react-bootstrap";
-
 import { useMutation} from "@apollo/client";
 import { REGISTER_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -10,7 +9,7 @@ const Register = (props) => {
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');  
     
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
     }
