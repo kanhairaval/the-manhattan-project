@@ -19,6 +19,7 @@
     "apollo-server-express": "^3.12.0",
     "bcrypt": "^5.0.0",
     "bootstrap": "^5.2.3",
+    "concurrently": "^6.3.0",
     "cjs": "^0.0.11",
     "express": "^4.17.1",
     "express-validator": "^6.15.0",
