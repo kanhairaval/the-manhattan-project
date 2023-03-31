@@ -8,12 +8,13 @@ import {
   } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Header from "./components/Navbar";
-  // import Footer from './components/Footer';
+import Footer from './components/footer';
 import Login from './components/Login';
 import Register from "./components/Register";
   // import Profile from './pages/Profile';
 import Home from './pages/Home';
   // import Questions from './components/questionList';
+  
   
   const httpLink = createHttpLink({
       uri: '/graphql',
@@ -51,7 +52,7 @@ import Home from './pages/Home';
                       </Switch>
                       {/* <Questions></Questions> */}
                       {/* <Register></Register> */}
-                      {/* <Footer /> */}
+                      <Footer />
                   </div>
               </Router>
           </ApolloProvider>
