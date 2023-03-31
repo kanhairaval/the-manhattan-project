@@ -2,10 +2,8 @@ import React, { useState } from "react";
 // import { Register } from "./Register";
 import {Form, Button, Alert} from "react-bootstrap";
 // import { useMutation } from "@apollo/client";
-// import { LOGIN_USER } from "../utils/mutations";
-
-import { loginUser } from "../utils/API";
-import {loginUserAuth} from "../utils/auth";
+import { loginUser } from "../utils/mutations";
+import loginUserAuth from "../utils/auth";
 
 function Login ()  {
     const [userFormData, setUserFormData] = useState({email: '', password: ''});
@@ -44,47 +42,17 @@ function Login ()  {
     
     return (
         <div className="auth-form-container">
-        <Form onSubmit={handleFormSubmit} noValidate validated={validated}>
-            <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant="danger">
-                Something went wrong with your login credentials!
-            </Alert>
-            <Form.Group>
-                <Form.Label htmlFor="email">Email</Form.Label>
-                <Form.Control
-                    type="email"
-                    placeholder="Your email"
-                    name="email"
-                    onChange={handleInputChange}
-                    value={userFormData.email}
-                    required
-                />
-                <Form.Control.Feedback type="invalid">Email is required!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label htmlFor="password">Password</Form.Label>
-                <Form.Control
-                    type="password"
-                    placeholder="Your password"
-                    name="password"
-
-                    onChange={handleInputChange}
-                    value={userFormData.password}
-                    required
-                />
-                <Form.Control.Feedback type="invalid">Password is required!</Form.Control.Feedback>
-            </Form.Group>
-            <Button
-
-                disabled={!(userFormData.email && userFormData.password)}
-                type="submit"
-                variant="success"
-            >
-                Submit
-            </Button>
+            <h2>Login</h2>
+       <Form className="Login-form"onSubmit={handleSubmit}>
+        <label htmlFor="email">email</label>
+        <input value={email} onchange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@email.com" id="email" name="email"/>
+        <label htmlFor="password">password</label>
+        <input value={pass} onchange={(e) => setPass(e.target.value)} type="password" placeholder="*********" id="password" name="password"/>
+        <button type="submit">Log-in</button>
         </Form>
+        <button className="link-btn" onClick={() => props.onFormSwitch("Register")}>Dont have an account? Register here!</button>
+         </div>
 
-       
-    </div>
     )
 }
 
