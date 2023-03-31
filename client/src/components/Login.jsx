@@ -1,33 +1,90 @@
 import React, { useState } from "react";
 // import { Register } from "./Register";
-import {Form} from "react-bootstrap";
+import {Form, Button, Alert} from "react-bootstrap";
 // import { useMutation } from "@apollo/client";
 // import { LOGIN_USER } from "../utils/mutations";
-// import Auth from "../utils/auth";
 
-const Login = (props) => {
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+import { loginUser } from "../utils/API";
+import {loginUserAuth} from "../utils/auth";
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(email);
+function Login ()  {
+    const [userFormData, setUserFormData] = useState({email: '', password: ''});
+    const [validated] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setUserFormData({ ...userFormData, [name]: value });
+    };
 
-    }
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            }
+        try {
+            const response = await loginUser(userFormData);
+            if (!response.ok) {
+                throw new Error('something went wrong!');
+            }
+            const { token, user } = await response.json();
+            console.log(user);
+            loginUserAuth.login(token);
+        } catch (err) {
+            console.error(err);
+            setShowAlert(true);
+        }
+        setUserFormData({
+            email: '',
+            password: ''
+        });
+    };
+    
     return (
-        
         <div className="auth-form-container">
-            <h2>Login</h2>
-       <Form className="Login-form"onSubmit={handleSubmit}>
-        <label htmlFor="email">email</label>
-        <input value={email} onchange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@email.com" id="email" name="email"/>
-        <label htmlFor="password">password</label>
-        <input value={pass} onchange={(e) => setPass(e.target.value)} type="password" placeholder="*********" id="password" name="password"/>
-        <button type="submit">Log-in</button>
-        </Form>
-        <button className="link-btn" onClick={() => props.onFormSwitch("Register")}>Dont have an account? Register here!</button>
-         </div>
+        <Form onSubmit={handleFormSubmit} noValidate validated={validated}>
+            <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant="danger">
+                Something went wrong with your login credentials!
+            </Alert>
+            <Form.Group>
+                <Form.Label htmlFor="email">Email</Form.Label>
+                <Form.Control
+                    type="email"
+                    placeholder="Your email"
+                    name="email"
+                    onChange={handleInputChange}
+                    value={userFormData.email}
+                    required
+                />
+                <Form.Control.Feedback type="invalid">Email is required!</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label htmlFor="password">Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Your password"
+                    name="password"
 
+                    onChange={handleInputChange}
+                    value={userFormData.password}
+                    required
+                />
+                <Form.Control.Feedback type="invalid">Password is required!</Form.Control.Feedback>
+            </Form.Group>
+            <Button
+
+                disabled={!(userFormData.email && userFormData.password)}
+                type="submit"
+                variant="success"
+            >
+                Submit
+            </Button>
+        </Form>
+
+       
+    </div>
     )
 }
 
