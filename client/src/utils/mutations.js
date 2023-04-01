@@ -25,20 +25,12 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_SCORE = gql`
-    mutation saveScore($score: Int!, $name: String!) {
-        saveScore(score: $score, name: $name) {
+    mutation saveScore($score: Int!, $username: String!) {
+        saveScore(score: $score, username: $username) {
             _id
             score
-            name
+            username
             createdAt
-        }
-    }
-`;
-
-export const REMOVE_SCORE = gql`
-    mutation removeScore($scoreId: ID!) {
-        removeScore(scoreId: $scoreId) {
-            _id
         }
     }
 `;

@@ -17,9 +17,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.route('/').get(homePage);
-router.route('/signup').post(signupUser);
-router.route('/login').post(loginUser);
-router.route('/logout').post(logoutUser);
+router.route('/signup').get(signupUser);
+router.route('/login').get(loginUser);
+router.route('/logout').get(logoutUser);
 
 
 

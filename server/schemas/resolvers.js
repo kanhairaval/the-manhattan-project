@@ -31,15 +31,15 @@ const userResolvers = {
         },
 
         addUser: async (parent, args) => {
-            const {name, email, password} = args;
-            const user = await User.create({name, email, password});
+            const {username, email, password} = args;
+            const user = await User.create({username, email, password});
             const token = signToken(user);
             return {token, user};
         },
         updateUser: async (parent, args) => {
-            const {name, email, password} = args;
+            const {username, email, password} = args;
             const user = await User.findById(args._id);
-            if (name) user.name = name;
+            if (username) user.name = username;
             if (email) user.email = email;
             if (password) user.password = password;
             await user.save();
@@ -48,7 +48,18 @@ const userResolvers = {
         deleteUser: async (parent, args) => {
             const user = await User.findByIdAndDelete(args._id);
             return user;
-        },                
+        },
+        saveScore: async (parent, args, context) => {
+            if (context.user) {
+                const user = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $addToSet: { savedScores: args.scoreId } },
+                    { new: true }
+                );
+                return user;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        }         
     }
 };
 
