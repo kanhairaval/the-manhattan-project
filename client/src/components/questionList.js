@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
-import './css/questionList.css'
+import React, { useState } from "react";
+import './css/questionList.css';
 
 function Questions() {
-    const [data, setData] = useState(null);
+    const [location, setLocation] = useState("");
+    const [consumption, setConsumption] = useState("");
 
-    useEffect(() => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
         const encodedParams = new URLSearchParams();
-        encodedParams.append("consumption", "250");
-        encodedParams.append("location", "Canada");
+        encodedParams.append("consumption", consumption);
+        encodedParams.append("location", location);
 
         const options = {
             method: 'POST',
@@ -21,20 +24,20 @@ function Questions() {
 
         fetch('https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro', options)
             .then(response => response.json())
-            .then(response => setData(response))
+            .then(response => console.log(response))
             .catch(err => console.error(err));
-    }, []);
+    };
 
     return (
-    <form className="questionForm">
-        <span className="questionTitle">Subscribe to our newsletter.</span>
-        <p className="questionDescription">Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt dolore.</p>
-        <div>
-            <input placeholder="Enter your email" type="email" name="email" id="email-address" /> 
-            <button type="submit">Subscribe</button>
-        </div>
-        {data && <p>Consumption: {data.consumption}, Location: {data.location}</p>}
-    </form>
+        <form className="questionForm" onSubmit={handleSubmit}>
+            <span className="questionTitle">Subscribe to our newsletter.</span>
+            <p className="questionDescription">Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt dolore.</p>
+            <div>
+                <input placeholder="Enter your location" type="text" name="location" id="location" value={location} onChange={(event) => setLocation(event.target.value)} /> 
+                <input placeholder="Enter your consumption" type="text" name="consumption" id="consumption" value={consumption} onChange={(event) => setConsumption(event.target.value)} />
+                <button type="submit">Subscribe</button>
+            </div>
+        </form>
     );
 }
 
