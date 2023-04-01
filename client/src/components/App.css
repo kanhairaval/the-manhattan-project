@@ -1,4 +1,4 @@
-.App {
+.auth-form-container, .login-form, .register-form  {
     text-align: center;
     display: flex;
     min-height: 100vh;
