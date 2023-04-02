@@ -14,11 +14,11 @@ function Header() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="home">The Manhattan Project</Navbar.Brand>
+        <Navbar.Brand href="home">Earthify</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#features">Personal Calculator</Nav.Link>
+            <Nav.Link href="/questions">Personal Calculator</Nav.Link>
             <NavDropdown title="Secret Stuff" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">How you are able to help</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -43,7 +43,7 @@ function Header() {
               <Nav.Link href="/register">Register</Nav.Link>
               </>
             )}
-            <Nav.Link eventKey={2} href="/donation">Donate!
+            <Nav.Link eventKey={2} href="/create-payment-intent">Donate!
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

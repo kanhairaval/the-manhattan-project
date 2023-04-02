@@ -77,6 +77,22 @@ module.exports = {
         }
     },
 
+    async donation (req, res) {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [{
+                name: 'Donation',
+                description: 'Thank you for your donation!',
+                amount: 1000,
+                currency: 'usd',
+                quantity: 1,
+            }],
+            success_url: 'http://localhost:3001/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url: 'http://localhost:3001/cancel',
+        });
+        res.json({ id: session.id });
+    },
+    
     //update user information
     async updateUser(req, res) {
         const errors = validationResult(req);

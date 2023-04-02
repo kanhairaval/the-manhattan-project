@@ -5,6 +5,7 @@ const {
   signupUser,
   loginUser,
   logoutUser,
+  donation,
   // updateUser,
   // deleteUser,  
 } = require('../../controllers/user-controller');
@@ -15,6 +16,7 @@ router.route('/').get(authMiddleware, homePage);
 router.route('/signup').post(signupUser);
 router.route('/login').post(loginUser);
 router.route('/logout').get(logoutUser);
+router.route('/create-payment-intent').post(donation);
 
 
 

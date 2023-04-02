@@ -2,6 +2,8 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
+require('dotenv').config();
+const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
@@ -24,6 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+
 
 
 const startApolloServer = async (typeDefs, resolvers) => {
