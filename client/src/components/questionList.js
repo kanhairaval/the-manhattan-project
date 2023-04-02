@@ -21,13 +21,6 @@ const questionData = [
     type: "fuelAmount",
   },
 ];
-
-async function convertConsumptionToCO2(consumption) {
-    const kgCO2 = consumption * 19.22;
-    const carbon = `${kgCO2.toFixed(1)} kg co2`;
-    const success = true;
-    return { carbon, success };
-  }
   
 function Questions() {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -41,6 +34,13 @@ function Questions() {
     event.preventDefault();
 
     let response;
+
+    async function convertConsumptionToCO2(consumption) {
+        const kgCO2 = consumption * 19.22;
+        const carbon = `${kgCO2.toFixed(1)} kg co2`;
+        const success = true;
+        return { carbon, success };
+      }
 
     if (currentQuestion.type === "kilowattConsumption") {
         const data = { consumption: kilowattConsumption, location: "Canada" };
@@ -60,8 +60,6 @@ function Questions() {
         console.log(trees);
       } else if (currentQuestion.type === "consumptionType") {
         const result = await convertConsumptionToCO2(consumptionType);
-        setCarbon(result.carbon);
-        setSuccess(result.success);
         setConsumptionType("");
         const carbon = result.carbon.split(" ")[0];
         const trees = (parseFloat(carbon) / 100) * 1.7; // calculate the number of trees needed to offset emissions
