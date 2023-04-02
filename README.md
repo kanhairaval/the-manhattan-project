@@ -1,4 +1,4 @@
-# Carbon Footprint Calculator
+# Earthify (Science and shit)
 
 This web application calculates your carbon footprint based on your fuel usage, meat consumption, and electricity usage. It also estimates how many trees would be required to offset that carbon footprint. The application is built using the MERN stack and written in JavaScript.
 
