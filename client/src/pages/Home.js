@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from '../components/Login';
 import Register from "../components/Register";
 
@@ -12,8 +12,24 @@ function HomePage() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
       </Switch>
+      <section className="section">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div/>
+                      <h3 className="main-hander">Earthify</h3>
+                      <div className="underlne mx auto"></div>
+                      <p> ya mum</p>
+                      <link to="/about">Read More</link>
+                      <div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+      </section>
+
     </div>
   );
 }
 
-export default HomePage;
+export default HomePage; 
