@@ -11,6 +11,53 @@ import Header from "./components/Navbar";
 import Footer from './components/footer';
 import Login from './components/Login';
 import Register from "./components/Register";
+<<<<<<< HEAD
+// import Profile from './pages/Profile';
+// import Home from './pages/Home';
+
+
+const httpLink = createHttpLink({
+    uri: '/graphql',
+    credentials: 'same-origin'
+});
+
+const authLink = setContext((_, { headers }) => {
+    const token = localStorage.getItem('id_token');
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : '',
+        }
+    };
+});
+
+const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache()
+});
+
+function App() {
+    return (
+        <ApolloProvider client={client}>
+            <Router>
+                <div>
+                    <Header />
+                    <Routes>
+                    
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/register" component={Register} />
+                        {/* <Route exact path="/profile" component={Profile} /> */}
+                        {/* <Route exact path="/" component={Home} /> */}
+                    </Routes>
+                    {/* <Footer /> */}
+                </div>
+            </Router>
+        </ApolloProvider>
+    );
+}
+
+export default App;
+=======
   // import Profile from './pages/Profile';
 import Home from './pages/Home';
   // import Questions from './components/questionList';
@@ -60,3 +107,4 @@ import Home from './pages/Home';
   }
   
   export default App;
+>>>>>>> 198e4381b5b6b66cd8e3ffc46818a1cf50a44746
