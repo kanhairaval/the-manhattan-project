@@ -17,7 +17,16 @@
       "express": "^4.17.1",
       "graphql": "^16.5.0",
       "jsonwebtoken": "^8.5.1",
-      "mongoose": "^5.9.10"
+      "mongoose": "^5.9.10",
+      "@stripe/react-stripe-js": "^1.4.0",
+      "@stripe/stripe-js": "^1.21.1",
+      "stripe": "^8.163.0",
+      "webpack": "^5.64.4",
+      "webpack-cli": "^4.9.1",
+      "webpack-dev-server": "^4.6.0",
+      "path-browserify": "^1.0.1",
+      "dotenv-webpack": "^7.0.0",
+      "dotenv": "^10.0.0"
     },
     "devDependencies": {
       "nodemon": "^2.0.3"

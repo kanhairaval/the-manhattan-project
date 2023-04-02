@@ -14,6 +14,7 @@ import Register from "./components/Register";
   // import Profile from './pages/Profile';
 import Home from './pages/Home';
 import Questions from './components/questionList';
+import StripeCheckoutForm from './pages/Donate';
   
   
 const httpLink = createHttpLink({
@@ -47,9 +48,10 @@ function App() {
                         {/* <Route exact path="/profile" component={Profile} /> */}
                         <Route exact path="/" component={Home} />
                         <Route exact path="/home" component={Home} />
+                        <Route exact path="/questions" component={Questions} />
+                        <Route exact path="/create-payment-intent" component={StripeCheckoutForm} />
                         <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
                     </Switch>
-                    <Questions></Questions>
                     {/* <Register></Register> */}
                     <Footer />
                 </div>

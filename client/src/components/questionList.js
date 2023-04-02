@@ -26,6 +26,8 @@ import { useState } from "react";
 
 import { useState } from "react";
 
+import { useState } from "react";
+
 function Questions() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [kilowattConsumption, setKilowattConsumption] = useState("");
