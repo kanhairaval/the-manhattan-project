@@ -21,12 +21,6 @@ const questionData = [
     type: "fuelAmount",
   },
 ];
-  
-import { useState } from "react";
-
-import { useState } from "react";
-
-import { useState } from "react";
 
 function Questions() {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -97,26 +91,28 @@ function Questions() {
     } else {
         setTrees(0);
     }
+  };
 
     return (
     /* Display the current question */
-    <form className="questionForm" onSubmit={handleSubmit}>
-        <span className="questionTitle">{currentQuestion.title}</span>
-        <p className="questionDescription">{currentQuestion.description}</p>
-        <div>
-            {currentQuestion.type === "kilowattConsumption" && (
-                <input placeholder={currentQuestion.sample} type="text" value={kilowattConsumption} onChange={(event) => setKilowattConsumption(event.target.value)} />
-            )}
-            {currentQuestion.type === "consumptionType" && (
-                <input placeholder={currentQuestion.sample} type="text" value={consumptionType} onChange={(event) => setConsumptionType(event.target.value)} />
-            )}
-            {currentQuestion.type === "fuelAmount" && (
-                <input placeholder={currentQuestion.sample} type="text" value={fuelAmount} onChange={(event) => setFuelAmount(event.target.value)} />
-            )}
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+      <form className="questionForm" onSubmit={handleSubmit}>
+          <span className="questionTitle">{currentQuestion.title}</span>
+          <p className="questionDescription">{currentQuestion.description}</p>
+          <div>
+              {currentQuestion.type === "kilowattConsumption" && (
+                  <input placeholder={currentQuestion.sample} type="text" value={kilowattConsumption} onChange={(event) => setKilowattConsumption(event.target.value)} />
+              )}
+              {currentQuestion.type === "consumptionType" && (
+                  <input placeholder={currentQuestion.sample} type="text" value={consumptionType} onChange={(event) => setConsumptionType(event.target.value)} />
+              )}
+              {currentQuestion.type === "fuelAmount" && (
+                  <input placeholder={currentQuestion.sample} type="text" value={fuelAmount} onChange={(event) => setFuelAmount(event.target.value)} />
+              )}
+              <button type="submit">Submit</button>
+          </div>
+      </form>
     );
-}
+};
+
 
 export default Questions;
