@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './css/questionList.css';
 
 const questionData = [
   {
@@ -57,6 +58,7 @@ function Questions() {
           "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
         },
       });
+      setConsumptionType("");
     } else if (currentQuestion.type === "fuelAmount") {
         const body = {
           "type": fuelType,
@@ -73,7 +75,8 @@ function Questions() {
         });
         const data = await response.json();
         const carbon = data.carbon.split(' ')[0]; // get the first index value of carbon
-      }      
+      }
+      
 
     const data = await response.json();
     console.log(data);
@@ -86,25 +89,24 @@ function Questions() {
     }
   };
 
-  return (
-    <div>
-      {/* Display the current question */}
-      <h1>{currentQuestion.title}</h1>
-      <p>{currentQuestion.description}</p>
-        <p>{currentQuestion.sample}</p>
-        <form onSubmit={handleSubmit}>
+    return (
+    /* Display the current question */
+    <form className="questionForm" onSubmit={handleSubmit}>
+        <span className="questionTitle">{currentQuestion.title}</span>
+        <p className="questionDescription">{currentQuestion.description}</p>
+        <div>
             {currentQuestion.type === "kilowattConsumption" && (
-                <input type="text" value={kilowattConsumption} onChange={(event) => setKilowattConsumption(event.target.value)} />
+                <input placeholder={currentQuestion.sample} type="text" value={kilowattConsumption} onChange={(event) => setKilowattConsumption(event.target.value)} />
             )}
             {currentQuestion.type === "consumptionType" && (
-                <input type="text" value={consumptionType} onChange={(event) => setConsumptionType(event.target.value)} />
+                <input placeholder={currentQuestion.sample} type="text" value={consumptionType} onChange={(event) => setConsumptionType(event.target.value)} />
             )}
             {currentQuestion.type === "fuelAmount" && (
-                <input type="text" value={fuelAmount} onChange={(event) => setFuelAmount(event.target.value)} />
+                <input placeholder={currentQuestion.sample} type="text" value={fuelAmount} onChange={(event) => setFuelAmount(event.target.value)} />
             )}
             <button type="submit">Submit</button>
-        </form>
-    </div>
+        </div>
+    </form>
     );
 }
 
