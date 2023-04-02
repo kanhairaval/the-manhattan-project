@@ -43,7 +43,7 @@ function Header() {
               <Nav.Link href="/register">Register</Nav.Link>
               </>
             )}
-            <Nav.Link eventKey={2} href="/create-payment-intent">Donate!
+            <Nav.Link eventKey={2} href="/donate">Donate!
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
