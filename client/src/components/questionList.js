@@ -21,7 +21,7 @@ const questionData = [
     type: "fuelAmount",
   },
 ];
-
+  
 function Questions() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [kilowattConsumption, setKilowattConsumption] = useState("");
@@ -30,69 +30,113 @@ function Questions() {
   const [fuelAmount, setFuelAmount] = useState("");
   const [trees, setTrees] = useState(0);
 
-  const questionData = [
-    { type: "kilowattConsumption", text: "What is your average monthly electricity consumption in kilowatt-hours?" },
-    { type: "consumptionType", text: "What type of energy are you using? Please input 1 for Natural Gas, 2 for Oil, 3 for Propane, or 4 for Wood." },
-    { type: "fuelAmount", text: "How many litres of fuel have you used in the past month?" },
-  ];
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     let response;
 
-    async function convertConsumptionToCO2(consumption) {
-      const kgCO2 = consumption * 19.22;
-      return parseFloat(kgCO2.toFixed(1));
-    }
+async function convertConsumptionToCO2(consumption) {
+  const kgCO2 = consumption * 19.22;
+  return parseFloat(kgCO2.toFixed(1));
+}
 
-    async function convertFuelToCO2(fuelType, fuelAmount) {
-      const body = {
-        "type": fuelType,
-        "litres": fuelAmount
-      };
-      response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e`, {
-        method: "POST",
-        headers: {
-          "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
-          "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-      });
-      const data = await response.json();
-      return parseFloat(data.carbon.split(' ')[0]);
-    }
-
-    async function convertHydroToCO2(consumption) {
-      const data = { consumption: consumption, location: "Canada" };
-      response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
-          "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-        },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      return parseFloat(result.carbon.split(" ")[0]);
-    }
-
-    if (questionIndex === 0) {
-      const kgCO2 = await convertHydroToCO2(kilowattConsumption);
-      setTrees(parseFloat((kgCO2 / 100) * 1.7).toFixed(1));
-    } else if (questionIndex === 1) {
-      const kgCO2 = await convertConsumptionToCO2(consumptionType);
-      setTrees(parseFloat((kgCO2 / 100) * 1.7).toFixed(1));
-    } else if (questionIndex === 2) {
-      const kgCO2 = await convertFuelToCO2(fuelType, fuelAmount);
-        setTrees(parseFloat((kgCO2 / 100) * 1.7).toFixed(1));
-    } else {
-        setTrees(0);
-    }
+async function convertFuelToCO2(fuelType, fuelAmount) {
+  const body = {
+    type: fuelType,
+    litres: fuelAmount,
   };
+  response = await fetch(
+    `https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e`,
+    {
+      method: "POST",
+      headers: {
+        "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
+        "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+  const data = await response.json();
+  return parseFloat(data.carbon.split(" ")[0]);
+}
 
+async function convertHydroToCO2(consumption) {
+  const data = { consumption: consumption, location: "Canada" };
+  response = await fetch(
+    `https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  const jsonData = await response.json();
+  return parseFloat(jsonData.carbon.split(" ")[0]);
+}
+
+let co2e;
+
+switch (questionData[questionIndex].type) {
+  case "kilowattConsumption":
+    co2e = await convertConsumptionToCO2(kilowattConsumption);
+    break;
+  case "consumptionType":
+    co2e = await convertFuelToCO2(consumptionType, fuelAmount);
+    break;
+  case "fuelAmount":
+    if (fuelType === "hydro") {
+        co2e = await convertHydroToCO2(fuelAmount);
+    } else {
+        co2e = await convertFuelToCO2(fuelType, fuelAmount);
+    } // end if
+    break;
+    default:
+    break;
+}  // end switch
+const handleNextQuestion = () => {
+    if (questionIndex === questionData.length - 1) {
+    // if the current question is the last question, calculate the total CO2 emissions and trees needed
+    let totalCO2e = 0;
+    for (let i = 0; i < questionData.length; i++) {
+    switch (questionData[i].type) {
+    case "kilowattConsumption":
+    totalCO2e += convertConsumptionToCO2(kilowattConsumption);
+    break;
+    case "consumptionType":
+    totalCO2e += convertFuelToCO2(consumptionType, fuelAmount);
+    break;
+    case "fuelAmount":
+    if (fuelType === "hydro") {
+    totalCO2e += convertHydroToCO2(fuelAmount);
+    } else {
+    totalCO2e += convertFuelToCO2(fuelType, fuelAmount);
+    }
+    break;
+    default:
+    break;
+    }
+    }
+    // convert CO2 emissions to number of trees needed
+    const treesNeeded = Math.ceil(totalCO2e / 21.77);
+    setTrees(treesNeeded);
+    setQuestionIndex(0);
+    } else {
+    // if the current question is not the last question, move on to the next question
+    setQuestionIndex(questionIndex + 1);
+    }
+    };
+    const handleBackQuestion = () => {
+        if (questionIndex === 0) {
+        setQuestionIndex(questionData.length - 1);
+        } else {
+        setQuestionIndex(questionIndex - 1);
+        }
+        };
+     
     return (
     /* Display the current question */
       <form className="questionForm" onSubmit={handleSubmit}>
