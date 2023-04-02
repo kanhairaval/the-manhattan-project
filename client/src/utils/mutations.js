@@ -36,4 +36,15 @@ export const SAVE_SCORE = gql`
     }
 `;
 
+export const CREATE_PAYMENT_INTENT = gql`
+  mutation CreatePaymentIntent($amount: Int!, $currency: String!) {
+    createPaymentIntent(amount: $amount, currency: $currency) {
+      id
+      amount
+      currency
+      status
+    }
+  }
+`;
+
 
