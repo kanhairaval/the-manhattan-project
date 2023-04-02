@@ -11,7 +11,7 @@ import Header from "./components/Navbar";
 import Footer from './components/footer';
 import Login from './components/Login';
 import Register from "./components/Register";
-  // import Profile from './pages/Profile';
+import ProfilePage from './pages/Profile';
 import Home from './pages/Home';
 import Questions from './components/questionList';
 import StripeCheckoutForm from './pages/Donate';
@@ -49,7 +49,9 @@ function App() {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/home" component={Home} />
                         <Route exact path="/questions" component={Questions} />
-                        <Route exact path="/create-payment-intent" component={StripeCheckoutForm} />
+                        <Route exact path="/donate" component={StripeCheckoutForm} />
+                        <Route exact path="/profile" component={ProfilePage} />
+
                         <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
                     </Switch>
                     {/* <Register></Register> */}
