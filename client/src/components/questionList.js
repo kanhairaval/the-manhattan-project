@@ -55,7 +55,7 @@ function Questions() {
         });
         
         const result = await response.json();
-        const carbon = result.carbon.split("")[0];
+        const carbon = result.carbon.split(" ")[0];
         const trees = (parseFloat(carbon) / 100) * 1.7; // calculate the number of trees needed to offset emissions
         console.log(trees);
       } else if (currentQuestion.type === "consumptionType") {
@@ -66,7 +66,6 @@ function Questions() {
         console.log(trees);
       } else if (currentQuestion.type === "fuelAmount") {
         const body = {
-          "type": fuelType,
           "litres": fuelAmount
         }
         response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e`, {
