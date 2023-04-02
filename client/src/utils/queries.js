@@ -4,14 +4,8 @@ export const GET_ME = gql`
     query me {
         me {
             _id
-            username
+            name
             email
-            savedScores {
-                _id
-                score
-                name
-                createdAt
-            }
         }
     }
 `;
@@ -20,14 +14,8 @@ export const GET_USERS = gql`
     query users {
         users {
             _id
-            username
+            name
             email
-            savedScores {
-                _id
-                score
-                name
-                createdAt
-            }
         }
     }
 `;

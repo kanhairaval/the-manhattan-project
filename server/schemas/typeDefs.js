@@ -25,17 +25,11 @@ const typeDefs = gql`
         me: User
         Users: [User]
         User(_id: ID!): User
-        scores: [Score]
-        score(_id: ID!): Score
     }
 
     type Mutation {
-        addUser(username: String!, email: String!, password: String!): Auth
+        addUser(name: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        updateUser(_id: ID!, username: String, email: String, password: String): User
-        deleteUser(_id: ID!): User
-        saveScore(score: Int!, name: String!): Score
-        removeScore(_id: ID!): Score
     }
 `;
 

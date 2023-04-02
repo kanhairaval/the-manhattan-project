@@ -1,9 +1,16 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Auth from '../utils/auth';
 
 function Header() {
+    const logout= (e) => {
+      e.preventDefault();
+      Auth.logout();
+    };
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -22,10 +29,21 @@ function Header() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="/login">Log In</Nav.Link>
-            <Nav.Link href="/register">Register</Nav.Link>
-            <Nav.Link eventKey={2} href="/donation">
-              Donate!
+            {Auth.loggedIn() ? (
+              <>
+                <Nav.Link href="/profile">Profile</Nav.Link>
+                <Nav.Link >
+                <button className="" onClick={logout}>Logout
+                </button>
+                </Nav.Link>
+              </>
+            ) : (
+              <>
+              <Nav.Link href="/login">Log In</Nav.Link>
+              <Nav.Link href="/register">Register</Nav.Link>
+              </>
+            )}
+            <Nav.Link eventKey={2} href="/donation">Donate!
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

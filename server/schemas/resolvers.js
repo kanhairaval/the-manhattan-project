@@ -15,11 +15,7 @@ const userResolvers = {
         },
         me: async (parent, args, context) => {
             if (context.user) {
-                const userData = await User
-                    .findOne({ _id: context.user._id })
-                    .select('-__v -password')
-                    .populate('savedScores')
-                return userData;
+                return User.findOne({ _id: context.user._id })
             }
             throw new AuthenticationError('Not logged in');
         }
@@ -36,7 +32,8 @@ const userResolvers = {
             }
             const token = signToken(user);
             return { token, user };
-        },
+        }, 
+
 
         addUser: async (parent, args) => {
             const {name, email, password} = args;

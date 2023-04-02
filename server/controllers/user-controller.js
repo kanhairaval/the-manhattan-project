@@ -48,7 +48,7 @@ module.exports = {
 
     //login user and return token
     async loginUser(req, res) {
-        const user = await User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] });
+        const user = await User.findOne({ $or: [{ name: req.body.name }, { email: req.body.email }] });
         if (!user) {
             return res.status(400).json({ message: 'Something is wrong!' });
         }
