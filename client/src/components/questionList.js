@@ -53,15 +53,19 @@ function Questions() {
           },
           body: JSON.stringify(data),
         });
-      
+        
         const result = await response.json();
         const carbon = result.carbon.split(" ")[0];
-        console.log(carbon);
+        const trees = (parseFloat(carbon) / 100) * 1.7; // calculate the number of trees needed to offset emissions
+        console.log(trees);
       } else if (currentQuestion.type === "consumptionType") {
         const result = await convertConsumptionToCO2(consumptionType);
         setCarbon(result.carbon);
         setSuccess(result.success);
         setConsumptionType("");
+        const carbon = result.carbon.split(" ")[0];
+        const trees = (parseFloat(carbon) / 100) * 1.7; // calculate the number of trees needed to offset emissions
+        console.log(trees);
       } else if (currentQuestion.type === "fuelAmount") {
         const body = {
           "type": fuelType,
@@ -78,12 +82,10 @@ function Questions() {
         });
         const data = await response.json();
         const carbon = data.carbon.split(' ')[0]; // get the first index value of carbon
+        const trees = (parseFloat(carbon) / 100) * 1.7; // calculate the number of trees needed to offset emissions
+        console.log(trees);
       }
       
-
-    const data = await response.json();
-    console.log(data);
-
     // If we're on the last question, reset back to the first question
     if (questionIndex === questionData.length - 1) {
       setQuestionIndex(0);
