@@ -35,14 +35,21 @@ function Questions() {
     let response;
 
     if (currentQuestion.type === "kilowattConsumption") {
-      response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/electricityToCO2e?kWh=${kilowattConsumption}`, {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
-          "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-        },
-      });
-    } else if (currentQuestion.type === "consumptionType") {
+        const data = { consumption: kilowattConsumption, location: "Canada" };
+        response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
+            "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
+          },
+          body: JSON.stringify(data),
+        });
+      
+        const result = await response.json();
+        const carbon = result.carbon.split(" ")[0];
+        console.log(carbon);
+      } else if (currentQuestion.type === "consumptionType") {
       response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?type=${consumptionType}`, {
         method: "GET",
         headers: {
@@ -51,14 +58,22 @@ function Questions() {
         },
       });
     } else if (currentQuestion.type === "fuelAmount") {
-      response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/meatToCO2e?kg=${fuelAmount}`, {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
-          "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-        },
-      });
-    }
+        const body = {
+          "type": fuelType,
+          "litres": fuelAmount
+        }
+        response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e`, {
+          method: "POST",
+          headers: {
+            "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
+            "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        });
+        const data = await response.json();
+        const carbon = data.carbon.split(' ')[0]; // get the first index value of carbon
+      }      
 
     const data = await response.json();
     console.log(data);
