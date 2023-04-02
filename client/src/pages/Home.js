@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from '../components/Login';
 import Register from "../components/Register";
 
@@ -12,6 +12,20 @@ function HomePage() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
       </Switch>
+      <section className="section">
+        <div className="container">
+          <div className="row">
+
+
+
+          
+        </div>
+
+
+        </div>
+
+      </section>
+
     </div>
   );
 }

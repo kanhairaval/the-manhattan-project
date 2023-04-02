@@ -14,6 +14,7 @@ import Register from "./components/Register";
   // import Profile from './pages/Profile';
 import Home from './pages/Home';
 import Questions from './components/questionList';
+import '.pages/App.css';
   
   
 const httpLink = createHttpLink({
