@@ -6,19 +6,19 @@ let questionData = [
         title: "Question 1",
         description: "How many Kilowatt-hours (kWh) of electricty do you use in a month?",
         sample: "(e.g. 300)",
-        type: "kilowattConsumption"
+        type: "kilowattConsumption",
     },
     {
         title: "Question 2",
         description: "How much gas, in Litres (L), do you use in a month? ",
         sample: "(e.g. 125)",
-        type: "consumptionType"
+        type: "consumptionType",
     },
     {
         title: "Question 3",
         description: "How many kilograms (kg) of meat do you consume in a month?",
         sample: "(e.g. 7)",
-        type: "fuelAmount"
+        type: "fuelAmount",
     }
 ]
 
@@ -27,14 +27,25 @@ function Questions() {
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [consumptionType, setConsumptionType] = useState("");
     const [fuelAmount, setFuelAmount] = useState("");
+    let questionNow = questionData[count];
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const encodedParams = new URLSearchParams();
-        encodedParams.append("type", consumptionType);
-        encodedParams.append("litres", fuelAmount);
 
+        if (questionNow.type === "kilowattConsumption") {
+            encodedParams.append("kWh", kilowattConsumption);
+            setKilowattConsumption("");
+        } else if (questionNow.type === "consumptionType") {
+            encodedParams.append("type", consumptionType);
+            setConsumptionType("");
+        } else if (questionNow.type === "fuelAmount") {
+            encodedParams.append("litres", fuelAmount);
+            setFuelAmount("");
+        }
+
+        console.log(encodedParams);
         const options = {
             method: 'POST',
             headers: {
@@ -50,13 +61,12 @@ function Questions() {
             .then(response => console.log(response))
             .catch(err => console.error(err));
         
-        setCount(count + 1);
-        setKilowattConsumption("");
-        setConsumptionType("");
-        setFuelAmount("");
+        if (count === questionData.length - 1) {
+            setCount(0);
+        } else {
+            setCount(count + 1);
+        }
     };
-
-    let questionNow = questionData[count];
 
     return (
         <form className="questionForm" onSubmit={handleSubmit}>
