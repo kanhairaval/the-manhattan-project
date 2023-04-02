@@ -3,14 +3,15 @@ import './css/questionList.css';
 
 function Questions() {
     const [location, setLocation] = useState("");
-    const [consumption, setConsumption] = useState("");
+    const [consumptionType, setConsumptionType] = useState("");
+    const [fuelAmount, setFuelAmount] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const encodedParams = new URLSearchParams();
-        encodedParams.append("consumption", consumption);
-        encodedParams.append("location", location);
+        encodedParams.append("type", consumptionType);
+        encodedParams.append("litres", fuelAmount);
 
         const options = {
             method: 'POST',
@@ -22,7 +23,7 @@ function Questions() {
             body: encodedParams
         };
 
-        fetch('https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro', options)
+        fetch('https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e', options)
             .then(response => response.json())
             .then(response => console.log(response))
             .catch(err => console.error(err));
@@ -34,7 +35,8 @@ function Questions() {
             <p className="questionDescription">Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt dolore.</p>
             <div>
                 <input placeholder="Enter your location" type="text" name="location" id="location" value={location} onChange={(event) => setLocation(event.target.value)} /> 
-                <input placeholder="Enter your consumption" type="text" name="consumption" id="consumption" value={consumption} onChange={(event) => setConsumption(event.target.value)} />
+                <input placeholder="Enter your consumption type" type="text" name="consumptionType" id="consumptionType" value={consumptionType} onChange={(event) => setConsumptionType(event.target.value)} />
+                <input placeholder="Enter your fuel amount" type="text" name="fuelAmount" id="fuelAmount" value={fuelAmount} onChange={(event) => setFuelAmount(event.target.value)} />
                 <button type="submit">Subscribe</button>
             </div>
         </form>
