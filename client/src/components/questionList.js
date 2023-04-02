@@ -22,6 +22,13 @@ const questionData = [
   },
 ];
 
+async function convertConsumptionToCO2(consumption) {
+    const kgCO2 = consumption * 19.22;
+    const carbon = `${kgCO2.toFixed(1)} kg co2`;
+    const success = true;
+    return { carbon, success };
+  }
+  
 function Questions() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [kilowattConsumption, setKilowattConsumption] = useState("");
@@ -51,15 +58,11 @@ function Questions() {
         const carbon = result.carbon.split(" ")[0];
         console.log(carbon);
       } else if (currentQuestion.type === "consumptionType") {
-      response = await fetch(`https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?type=${consumptionType}`, {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
-          "X-RapidAPI-Host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-        },
-      });
-      setConsumptionType("");
-    } else if (currentQuestion.type === "fuelAmount") {
+        const result = await convertConsumptionToCO2(consumptionType);
+        setCarbon(result.carbon);
+        setSuccess(result.success);
+        setConsumptionType("");
+      } else if (currentQuestion.type === "fuelAmount") {
         const body = {
           "type": fuelType,
           "litres": fuelAmount
