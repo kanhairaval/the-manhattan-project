@@ -18,7 +18,7 @@ View the results on the screen
 
 ## Credits
 
-This application was built by Aidan Reynolds, Mario Trigueros, Semir Seper & the Living Legend Kanhai Raval as a project for UofT Bootcamp.
+This application was built by Aidan Reynolds, Mario Trigueros, Semir Seper & Kanhai Raval as a project for UofT Bootcamp.
 
 ## License
 
