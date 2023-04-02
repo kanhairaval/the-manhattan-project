@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import {Form, Button} from "react-bootstrap";
+import {Form, Button, Alert} from "react-bootstrap";
 import './css/register.css'
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
@@ -13,9 +13,9 @@ const Register = () => {
         email: '',
         password: '',
       });
-      const [addProfile, { error, data }] = useMutation(ADD_USER);
-    
-      // update state based on form input changes
+    const [addUser, { error, data }] = useMutation(ADD_USER);
+    const [showAlert, setShowAlert] = useState(false);
+
       const handleInputChange = (event) => {
         const { name, value } = event.target;
     
@@ -31,24 +31,28 @@ const Register = () => {
         console.log(userFormData);
     
         try {
-          const { data } = await addProfile({
+          const { data } = await addUser({
             variables: { ...userFormData },
           });
     
-          Auth.login(data.addProfile.token);
+          Auth.login(data.addUser.token);
         } catch (e) {
           console.error(e);
+            setShowAlert(true);
         }
       };
 
     return (
         <div className="auth-form-container">
             <h2 className="registerTitle">Register</h2>
+        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+            Email in use!
+        </Alert>
         <Form className="register-form" onSubmit={handleFormSubmit}>
             <Form.Group className="mb-b">
                 <Form.Label htmlFor="name">Full Name</Form.Label>
                 <Form.Control
-                    type="name"
+                    type="text"
                     placeholder="Enter Full Name"
                     name="name"
                     onChange={handleInputChange}
