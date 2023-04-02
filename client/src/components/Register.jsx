@@ -81,7 +81,7 @@ const Register = () => {
                 />
             </Form.Group>
             <Button
-                className="btn d-block w-100"
+                className="registerBtn"
                 disabled={!(userFormData.email && userFormData.password)}
                 type="submit"
             >

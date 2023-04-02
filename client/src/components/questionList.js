@@ -1,8 +1,30 @@
 import React, { useState } from "react";
 import './css/questionList.css';
 
+let questionData = [
+    {
+        title: "Question 1",
+        description: "How many Kilowatt-hours (kWh) of electricty do you use in a month?",
+        sample: "(e.g. 300)",
+        type: "kilowattConsumption"
+    },
+    {
+        title: "Question 2",
+        description: "How much gas, in Litres (L), do you use in a month? ",
+        sample: "(e.g. 125)",
+        type: "consumptionType"
+    },
+    {
+        title: "Question 3",
+        description: "How many kilograms (kg) of meat do you consume in a month?",
+        sample: "(e.g. 7)",
+        type: "fuelAmount"
+    }
+]
+
 function Questions() {
-    const [location, setLocation] = useState("");
+    const [count, setCount] = useState(0);
+    const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [consumptionType, setConsumptionType] = useState("");
     const [fuelAmount, setFuelAmount] = useState("");
 
@@ -27,19 +49,24 @@ function Questions() {
             .then(response => response.json())
             .then(response => console.log(response))
             .catch(err => console.error(err));
+        
+        setCount(count + 1);
+        setKilowattConsumption("");
+        setConsumptionType("");
+        setFuelAmount("");
     };
+
+    let questionNow = questionData[count];
 
     return (
         <form className="questionForm" onSubmit={handleSubmit}>
-            <span className="questionTitle">Subscribe to our newsletter.</span>
-            <p className="questionDescription">Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt dolore.</p>
-            <div>
-                <input placeholder="Enter your location" type="text" name="location" id="location" value={location} onChange={(event) => setLocation(event.target.value)} /> 
-                <input placeholder="Enter your consumption type" type="text" name="consumptionType" id="consumptionType" value={consumptionType} onChange={(event) => setConsumptionType(event.target.value)} />
-                <input placeholder="Enter your fuel amount" type="text" name="fuelAmount" id="fuelAmount" value={fuelAmount} onChange={(event) => setFuelAmount(event.target.value)} />
-                <button type="submit">Subscribe</button>
-            </div>
-        </form>
+        <span className="questionTitle">{questionNow.title}</span>
+        <p className="questionDescription">{questionNow.description}</p>
+        <div>
+            <input placeholder={questionNow.sample} type="text" name={questionData.type} id={questionData.type} value={kilowattConsumption} onChange={(event) => setKilowattConsumption(event.target.value)} />
+            <button type="submit">Submit</button>
+        </div>
+    </form>
     );
 }
 

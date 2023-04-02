@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Form, Alert} from "react-bootstrap";
+import {Form, Button, Alert} from "react-bootstrap";
 import './css/login.css'
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
@@ -45,7 +45,7 @@ const Login = (props) => {
     
     return (
         <div className="auth-form-container">
-            <h2>Login</h2>
+            <h2 className="loginTitle">Login</h2>
             <Form className="login-form" validated={validated} onSubmit={handleFormSubmit}>
             <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
                 Something went wrong with your login credentials!
@@ -72,9 +72,13 @@ const Login = (props) => {
                         value={userFormData.password}
                     />
                 </Form.Group>
-                <button type="submit">Log-in</button>
+                <Button
+                className="registerBtn"
+                disabled={!(userFormData.email && userFormData.password)}
+                type="submit">
+                Login</Button>
             </Form>
-            <button className="link-btn" onClick={() => props.onFormSwitch("Register")}>Dont have an account? Register here!</button>
+            {/* <button className="link-btn" onClick={() => props.onFormSwitch("Register")}>Dont have an account? Register here!</button> */}
         </div>
     )
 }

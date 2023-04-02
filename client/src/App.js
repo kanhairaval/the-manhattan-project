@@ -13,7 +13,7 @@ import Login from './components/Login';
 import Register from "./components/Register";
   // import Profile from './pages/Profile';
 import Home from './pages/Home';
-  // import Questions from './components/questionList';
+import Questions from './components/questionList';
   
   
 const httpLink = createHttpLink({
@@ -49,7 +49,7 @@ function App() {
                         <Route exact path="/home" component={Home} />
                         <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
                     </Switch>
-                    {/* <Questions></Questions> */}
+                    <Questions></Questions>
                     {/* <Register></Register> */}
                     <Footer />
                 </div>
