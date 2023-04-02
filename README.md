@@ -1,12 +1,12 @@
-###Carbon Footprint Calculator
+# Carbon Footprint Calculator
 
 This web application calculates your carbon footprint based on your fuel usage, meat consumption, and electricity usage. It also estimates how many trees would be required to offset that carbon footprint. The application is built using the MERN stack and written in JavaScript.
 
-##Installation
+## Installation
 
 Visit the deployed URL here:
 
-##Usage
+## Usage
 
 To use the application, follow these steps:
 
@@ -16,10 +16,10 @@ Click on the "Calculate" button to calculate your carbon footprint and the numbe
 
 View the results on the screen
 
-##Credits
+## Credits
 
 This application was built by Aidan Reynolds, Mario Trigueros, Semir Seper & Kanhai Raval as a project for UofT Bootcamp.
 
-##License
+## License
 
 This application is licensed under the MIT License.
