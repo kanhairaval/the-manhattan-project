@@ -63,7 +63,26 @@ function Questions() {
         <span className="questionTitle">{questionNow.title}</span>
         <p className="questionDescription">{questionNow.description}</p>
         <div>
-            <input placeholder={questionNow.sample} type="text" name={questionData.type} id={questionData.type} value={kilowattConsumption} onChange={(event) => setKilowattConsumption(event.target.value)} />
+            <input placeholder={questionNow.sample} type="text" name={questionNow.type} id={questionNow.type} 
+            value={
+                questionNow.type === "kilowattConsumption"
+                ? kilowattConsumption
+                : questionNow.type === "consumptionType"
+                ? consumptionType
+                : questionNow.type === "fuelAmount"
+                ? fuelAmount
+                : ""       
+            } 
+            onChange={(event) => 
+                questionNow.type === "kilowattConsumption"
+                ? setKilowattConsumption(event.target.value)
+                : questionNow.type === "consumptionType"
+                ? setConsumptionType(event.target.value)
+                : questionNow.type === "fuelAmount"
+                ? setFuelAmount(event.target.value)
+                : ""
+            } />
+
             <button type="submit">Submit</button>
         </div>
     </form>
