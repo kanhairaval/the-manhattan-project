@@ -19,13 +19,31 @@ module.exports = {
     },
 
     //signup user and return token
-    async signupUser(req, res) {
-        const user = await User.create(req.body);
-        if (!user) {
-            return res.status(400).json({ message: 'Something is wrong!' });
+    async signupUser (req, res) {
+        try {
+          const { name, email, password } = req.body;
+      
+          // Check if user already exists
+          let user = await User.findOne({ email });
+          if (user) {
+            return res.status(400).json({ msg: 'User already exists' });
+          }
+      
+          // Create new user
+          user = new User({ name, email, password });
+      
+          // Hash password
+          const salt = await bcrypt.genSalt(10);
+          user.password = await bcrypt.hash(password, salt);
+      
+          // Save user to database
+          await user.save();
+      
+          res.json({ msg: 'User registered successfully' });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ msg: 'Server error' });
         }
-        const token = signToken(user);
-        res.json({ token, user });
     },
 
     //login user and return token

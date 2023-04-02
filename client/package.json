@@ -1,7 +1,8 @@
 {
-  "name": "environment",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^11.1.0",
@@ -21,7 +22,6 @@
     "jwt-decode": "^2.2.0"
   },
   "scripts": {
-    "client": "webpack-dev-server --mode development --open",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -1,35 +1,37 @@
-import axios from 'axios';
+import decode from 'jwt-decode';
 
-const apiEndpoint = '/api/auth';
+class AuthService {
+  getProfile() {
+    return decode(this.getToken());
+  }
 
-// Register a new user
-export async function registerUserAuth(user) {
-  const { data } = await axios.post(`${apiEndpoint}/register`, user);
-  localStorage.setItem('token', data.token);
-}
+  loggedIn() {
+    const token = this.getToken();
+    return token && !this.isTokenExpired(token) ? true : false;
+  }
 
-// Login an existing user
-export async function loginUserAuth(email, password) {
-  const { data } = await axios.post(`${apiEndpoint}/login`, { email, password });
-  localStorage.setItem('token', data.token);
-}
+  isTokenExpired(token) {
+    const decoded = decode(token);
+    if (decoded.exp < Date.now() / 1000) {
+      localStorage.removeItem('id_token');
+      return true;
+    }
+    return false;
+  }
 
-// Logout the current user
-export function logoutUserAuth() {
-  localStorage.removeItem('token');
-}
+  getToken() {
+    return localStorage.getItem('id_token');
+  }
 
-// Get the current user's details
-export async function getCurrentUser() {
-  try {
-    const token = localStorage.getItem('token');
-    const { data } = await axios.get(`${apiEndpoint}/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return data;
-  } catch (ex) {
-    return null;
+  login(idToken) {
+    localStorage.setItem('id_token', idToken);
+    window.location.assign('/');
+  }
+
+  logout() {
+    localStorage.removeItem('id_token');
+    window.location.reload();
   }
 }
+
+export default new AuthService();
