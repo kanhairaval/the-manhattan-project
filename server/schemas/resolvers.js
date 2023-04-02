@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, PaymentIntent } = require('../models/User');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
@@ -18,7 +18,22 @@ const userResolvers = {
                 return User.findOne({ _id: context.user._id })
             }
             throw new AuthenticationError('Not logged in');
-        }
+        },
+        paymentIntent: async (parent, args, context) => {
+            const paymentIntent = await stripe.paymentIntents.retrieve(args.id);
+            const user = await User.findById(paymentIntent.metadata.userId);
+            if (!user) {
+              throw new AuthenticationError('You are not authorized to view this PaymentIntent');
+            }
+            return {
+              id: paymentIntent.id,
+              amount: paymentIntent.amount,
+              currency: paymentIntent.currency,
+              status: paymentIntent.status,
+              created: paymentIntent.created,
+              customer: user,
+            };
+        },
     },
     Mutation: {
         login: async (parent, { email, password }) => {
@@ -34,13 +49,47 @@ const userResolvers = {
             return { token, user };
         }, 
 
-
         addUser: async (parent, args) => {
             const {name, email, password} = args;
             const user = await User.create({name, email, password});
             const token = signToken(user);
             return {token, user};
-        },      
+        },
+
+        createPaymentIntent: async (parent, args, context) => {
+            const { userId } = context;
+            if (!userId) {
+              throw new AuthenticationError('You must be logged in to create a PaymentIntent');
+            }
+            const user = await User.findById(userId);
+            const paymentIntent = await stripe.paymentIntents.create({
+              amount: args.amount,
+              currency: args.currency,
+              metadata: {
+                userId: user._id.toString(),
+              },
+            });
+            const newPaymentIntent = new PaymentIntent({
+              amount: paymentIntent.amount,
+              currency: paymentIntent.currency,
+              status: paymentIntent.status,
+              created: paymentIntent.created,
+              customer: user._id,
+            });
+            await newPaymentIntent.save();
+            return {
+              id: newPaymentIntent._id,
+              amount: newPaymentIntent.amount,
+              currency: newPaymentIntent.currency,
+              status: newPaymentIntent.status,
+              created: newPaymentIntent.created,
+              customer: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+              },
+            };
+        },  
     }
 };
 
