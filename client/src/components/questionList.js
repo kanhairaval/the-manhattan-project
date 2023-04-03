@@ -45,7 +45,7 @@ function Questions() {
               headers: {
                 "Content-Type": "application/json",
                 "x-rapidapi-host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-                "x-rapidapi-key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16"
+                "x-rapidapi-key": "6b035cb9d9mshf6a8a37c35a7c76p1f7aa3jsnddcf12226516"
               },
               body: JSON.stringify({
                 "consumption": kilowattConsumption,
@@ -63,7 +63,7 @@ function Questions() {
           }
           // Question 2 - fuelConsumption
           else if (questionData[currentQuestionIndex].type === "fuelConsumption") {
-            const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?rapidapi-key=9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16", {
+            const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?rapidapi-key=6b035cb9d9mshf6a8a37c35a7c76p1f7aa3jsnddcf12226516", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
