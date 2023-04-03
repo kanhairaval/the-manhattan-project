@@ -18,7 +18,7 @@ router.route('/').get(authMiddleware, homePage);
 router.route('/signup').post(signupUser);
 router.route('/login').post(loginUser);
 router.route('/logout').get(logoutUser);
-router.route('/donate').post(donation);
+router.route('/create-payment-intent').post(donation);
 router.route('/questions').post(authMiddleware, saveScore);
 // router.route('/profile').get(authMiddleware, homePage);
 

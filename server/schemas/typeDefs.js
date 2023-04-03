@@ -13,13 +13,13 @@ const typeDefs = gql`
         user: User
     }
     type Score {
-        _id: ID
-        score: String
+        _id: ID!
+        score: Int 
         name: String
         createdAt: String
     }
     type PaymentIntent {
-        id: ID!
+        _id: ID!
         amount: Int!
         currency: String!
         status: String!
@@ -28,21 +28,22 @@ const typeDefs = gql`
     }
     
     type Customer {
+        _id: ID!
         name: String!
         email: String!
-        phone: String
     }
+
     type Query {
         me: User
         Users: [User]
         User(_id: ID!): User
-        paymentIntent(id: ID!): PaymentIntent
+        paymentIntent(_id: ID!): PaymentIntent
     }
     type Mutation {
         addUser(name: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         createPaymentIntent(amount: Int!, currency: String!): PaymentIntent!
-        saveScore(score: Int!, name: String!): Score
+        saveScore(_id: ID!, score: Int!): User
     }
 `;
 
