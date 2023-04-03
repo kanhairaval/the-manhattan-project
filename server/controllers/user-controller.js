@@ -97,7 +97,7 @@ module.exports = {
         try {
             const newScore = await Score.create(req.body);
             const user = await User.findOneAndUpdate(
-                { _id: req.params.userId },
+                { _id: req.user._id },
                 { $push: { savedScores: newScore._id } },
                 { new: true }
             );
@@ -106,7 +106,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    
+
 
     //update user information
     async updateUser(req, res) {

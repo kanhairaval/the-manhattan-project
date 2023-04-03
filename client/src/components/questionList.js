@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import './css/questionList.css';
 import { useMutation } from "@apollo/client";
-import { SAVE_SCORE } from "../utils/mutations";
 
 
 const questionData = [
@@ -31,7 +30,6 @@ function Questions() {
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
     const [meatConsumption, setMeatConsumption] = useState("");
-    const [addScore, { error, data }] = useMutation(SAVE_SCORE);
   
     const currentQuestion = questionData[currentQuestionIndex];
   
@@ -119,19 +117,6 @@ function Questions() {
         return trees;
       };     
 
-      const handleSaveScore = async (event) => {
-        event.preventDefault();
-        const trees = await handleSubmit(event);
-        try {
-          const { data } = await addScore({
-            variables: { score: trees },
-          });
-          console.log(data);
-        } catch (err) {
-          console.error(err);
-        }
-        window.location.href = "/profile";
-      };
 
       const reloadPage = (event) => {
         window.location.reload();
@@ -176,7 +161,7 @@ function Questions() {
         )}
         {showResults === false && ( <button type="submit">Submit</button> )}
         {showResults === true && ( <button type="submit" onClick={reloadPage}>Recalculate</button> )}
-        {showResults === true && ( <button type="submit" onClick={handleSaveScore}>Save Score</button> )}
+        {showResults === true && ( <button type="submit">Save Score</button> )}
       </div>
     </form>
     </section>
