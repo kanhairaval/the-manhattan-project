@@ -25,9 +25,6 @@
     "stripe": "^8.163.0",
     "path-browserify": "^1.0.1",
     "dotenv-webpack": "^7.0.0",
-    "webpack": "^5.64.4",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
