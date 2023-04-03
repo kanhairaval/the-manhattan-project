@@ -23,40 +23,79 @@ const questionData = [
 ];
 
 function Questions() {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [kilowattConsumption, setKilowattConsumption] = useState("");
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [kilowattConsumption, setKilowattConsumption] = useState("");
+    const [fuelConsumption, setFuelConsumption] = useState("");
+  
+    const currentQuestion = questionData[currentQuestionIndex];
+  
+    const [meatConsumption, setMeatConsumption] = useState("");
 
-  const currentQuestion = questionData[currentQuestionIndex];
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    try {
-      const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-rapidapi-host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-          "x-rapidapi-key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16"
-        },
-        body: JSON.stringify({
-          "consumption": kilowattConsumption,
-          "location": "Canada"
-        })
-      });
-  
-      const data = await response.json();
-  
-      if (data.success) {
-        const carbonValue = data.carbon.split(" ")[0];
-        console.log("Carbon value:", carbonValue);
-      } else {
-        console.error("API call failed");
-      }
-    } catch (error) {
-      console.error("Error fetching data from API:", error);
-    }
-  };  
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+      
+        let co2kg = 0;
+      
+        // Calculate CO2 Kg values for all questions
+        try {
+          // Question 1 - kilowattConsumption
+          if (questionData[currentQuestionIndex].type === "kilowattConsumption") {
+            const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-rapidapi-host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
+                "x-rapidapi-key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16"
+              },
+              body: JSON.stringify({
+                "consumption": kilowattConsumption,
+                "location": "Canada"
+              })
+            });
+      
+            const data = await response.json();
+      
+            if (data.success) {
+              co2kg += parseFloat(data.carbon.split(" ")[0]);
+            } else {
+              console.error("API call failed");
+            }
+          }
+          // Question 2 - fuelConsumption
+          else if (questionData[currentQuestionIndex].type === "fuelConsumption") {
+            const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?rapidapi-key=9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                "type": "Petrol",
+                "litres": fuelConsumption
+              })
+            });
+      
+            const data = await response.json();
+      
+            if (data.success) {
+              co2kg += parseFloat(data.carbon.split(" ")[0]);
+            } else {
+              console.error("API call failed");
+            }
+          }
+          // Question 3 - meatConsumption
+          else if (questionData[currentQuestionIndex].type === "meatConsumption") {
+            co2kg += parseFloat((meatConsumption * 19.22).toFixed(2));
+          }
+        } catch (error) {
+          console.error("Error fetching data from API:", error);
+        }
+      
+        console.log("CO2 Kg value:", co2kg);
+      
+        // Calculate trees needed to offset CO2 Kg value
+        const trees = (co2kg / 100) * 1.7;
+        console.log("Trees needed:", trees);
+      };      
 
   return (
     /* Display the current question */
