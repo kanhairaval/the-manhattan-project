@@ -2,7 +2,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Auth from '../utils/auth';
 
@@ -10,6 +9,7 @@ function Header() {
     const logout= (e) => {
       e.preventDefault();
       Auth.logout();
+      window.location.href = '/home';
     };
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
