@@ -6,7 +6,6 @@ export const CURRENT_USER = gql`
             _id
             name
             email
-            score
         }
     }
 `;
@@ -21,5 +20,14 @@ export const GET_USERS = gql`
     }
 `;
 
-
+export const GET_SCORES = gql`
+    query scores {
+        scores {
+            _id
+            score
+            name
+            createdAt
+        }
+    }
+`;
 
