@@ -45,7 +45,7 @@ function HomePage() {
         <div className="container">
           <div className="col-md-12">
             <div>
-            <h3>About Us!</h3>
+            <h3 id="aboutUs">About Us!</h3>
             <div className="underlne 2 mx auto"></div>
             <p>
               Welcome to Earthify, the carbon tracking app that helps you reduce your environmental impact and support reforestation efforts worldwide. We believe that tracking your carbon footprint should be easy and accessible, and that everyone can make a difference by making simple changes in their daily lives.

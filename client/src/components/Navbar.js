@@ -27,7 +27,7 @@ function Header() {
             )}
             
             <NavDropdown title="Resources" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="/about">About</NavDropdown.Item>
+              <NavDropdown.Item href="/home#aboutUs">About Us</NavDropdown.Item>
               {Auth.loggedIn() ? (
                 <NavDropdown.Item href="/questions">Personal Calculator</NavDropdown.Item>
               ) : (
