@@ -33,9 +33,9 @@ function Questions() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-      
+        
         let co2kg = 0;
-      
+        
         // Calculate CO2 Kg values for all questions
         try {
           // Question 1 - kilowattConsumption
@@ -89,17 +89,15 @@ function Questions() {
         } catch (error) {
           console.error("Error fetching data from API:", error);
         }
-      
+        
         console.log("CO2 Kg value:", co2kg);
-      
+        
         // Calculate trees needed to offset CO2 Kg value
         const trees = (co2kg / 100) * 1.7;
         console.log("Trees needed:", trees);
-      };  
-      function handleNextQuestion() {
+      
         setCurrentQuestionIndex(currentQuestionIndex + 1);
-      }
-
+      };            
 
   return (
     /* Display the current question */
