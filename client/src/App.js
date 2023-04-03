@@ -14,11 +14,9 @@ import Register from "./components/Register";
 import ProfilePage from './pages/Profile';
 import Home from './pages/Home';
 import Questions from './components/questionList';
-<<<<<<< HEAD
-import '.pages/App.css';
-=======
+import './pages/App.css';
 import StripeCheckoutForm from './pages/Donate';
->>>>>>> e0554977b94d082de762d050f9e49aa6ef5e1054
+
   
   
 const httpLink = createHttpLink({
