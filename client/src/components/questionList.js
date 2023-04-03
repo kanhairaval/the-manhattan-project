@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import './css/questionList.css';
+import { useMutation } from "@apollo/client";
+import { SAVE_SCORE } from "../utils/mutations";
+
 
 const questionData = [
   {
@@ -27,11 +30,11 @@ function Questions() {
     const [showResults, setShowResults] = useState(false);
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
+    const [meatConsumption, setMeatConsumption] = useState("");
+    const [addScore, { error, data }] = useMutation(SAVE_SCORE);
   
     const currentQuestion = questionData[currentQuestionIndex];
   
-    const [meatConsumption, setMeatConsumption] = useState("");
-
     const handleSubmit = async (event) => {
         event.preventDefault();
       
@@ -48,7 +51,7 @@ function Questions() {
                 headers: {
                   "Content-Type": "application/json",
                   "x-rapidapi-host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-                  "x-rapidapi-key": "6b035cb9d9mshf6a8a37c35a7c76p1f7aa3jsnddcf12226516",
+                  "x-rapidapi-key": "70b074e296msh06923312155a421p1e4ea3jsn6fa478ec4b8f",
                 },
                 body: JSON.stringify({
                   consumption: kilowattConsumption,
@@ -68,7 +71,7 @@ function Questions() {
           // Question 2 - fuelConsumption
           else if (questionData[currentQuestionIndex].type === "fuelConsumption") {
             const response = await fetch(
-              "https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?rapidapi-key=6b035cb9d9mshf6a8a37c35a7c76p1f7aa3jsnddcf12226516",
+              "https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?rapidapi-key=70b074e296msh06923312155a421p1e4ea3jsn6fa478ec4b8f",
               {
                 method: "POST",
                 headers: {
@@ -104,13 +107,35 @@ function Questions() {
         console.log("Trees needed:", trees);
       
         if (currentQuestionIndex === questionData.length - 1) {
+          console.log(showResults);
           setShowResults(true);
           currentQuestion.title = "Your Results";
           currentQuestion.description = `Based on your carbon footprint of ${co2kg} Kg CO2 emissions, you would need to plant ${Math.ceil(trees)} trees to offset your emissions.`;
         } else {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
+        console.log(currentQuestionIndex);
+        console.log(questionData);
         }
-      };                 
+        return trees;
+      };     
+
+      const handleSaveScore = async (event) => {
+        event.preventDefault();
+        const trees = await handleSubmit(event);
+        try {
+          const { data } = await addScore({
+            variables: { score: trees },
+          });
+          console.log(data);
+        } catch (err) {
+          console.error(err);
+        }
+        window.location.href = "/profile";
+      };
+
+      const reloadPage = (event) => {
+        window.location.reload();
+      }
 
   return (
     /* Display the current question */
@@ -150,7 +175,8 @@ function Questions() {
           />
         )}
         {showResults === false && ( <button type="submit">Submit</button> )}
-        {showResults === true && ( <button type="submit">Recalculate</button> )}
+        {showResults === true && ( <button type="submit" onClick={reloadPage}>Recalculate</button> )}
+        {showResults === true && ( <button type="submit" onClick={handleSaveScore}>Save Score</button> )}
       </div>
     </form>
     </section>

@@ -27,17 +27,6 @@ const userSchema = new Schema({
         ]
     });
 
-const PaymentIntentSchema = new Schema({
-    amount: Number,
-    currency: String,
-    status: String,
-    created: Number,
-    customer: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
-});
-
 
 userSchema.pre('save', async function(next) {
     if (this.isNew || this.isModified('password')) {
@@ -53,7 +42,6 @@ userSchema.methods.isCorrectPassword = async function(password) {
 };
 
 const User = model('User', userSchema);
-const PaymentIntent = model('PaymentIntent', PaymentIntentSchema);
 
-module.exports = {User, PaymentIntent};
+module.exports = {User};
 

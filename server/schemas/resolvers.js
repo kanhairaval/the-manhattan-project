@@ -19,6 +19,9 @@ const userResolvers = {
             }
             throw new AuthenticationError('Not logged in');
         },
+
+        
+
         paymentIntent: async (parent, args, context) => {
             const paymentIntent = await stripe.paymentIntents.retrieve(args.id);
             const user = await User.findById(paymentIntent.metadata.userId);
@@ -35,6 +38,7 @@ const userResolvers = {
             };
         },
     },
+
     Mutation: {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
@@ -56,6 +60,18 @@ const userResolvers = {
             return {token, user};
         },
 
+        saveScore: async (parent, args, context) => {
+            if (context.user) {
+                const updatedUser = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { savedScores: args } },
+                    { new: true }
+                );
+                return updatedUser;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        
         createPaymentIntent: async (parent, args, context) => {
             const { userId } = context;
             if (!userId) {

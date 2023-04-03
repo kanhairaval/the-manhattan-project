@@ -8,7 +8,7 @@ import "./App.css"; // import css file
 
 function HomePage() {
   return (
-    <div className="">
+    <div className="homeBody">
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />

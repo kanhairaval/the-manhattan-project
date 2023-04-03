@@ -93,6 +93,21 @@ module.exports = {
         res.json({ id: session.id });
     },
     
+    async saveScore(req, res) {
+        try {
+            const newScore = await Score.create(req.body);
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $push: { savedScores: newScore._id } },
+                { new: true }
+            );
+            res.json(user);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    
+
     //update user information
     async updateUser(req, res) {
         const errors = validationResult(req);
