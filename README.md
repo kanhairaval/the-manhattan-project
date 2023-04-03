@@ -30,7 +30,7 @@ Node.js and Express for the backend
 
 MongoDB for data storage
 
-Chart.js for data visualization
+GraphQL for data storage
 
 Heroku for deployment
 
