@@ -14,6 +14,7 @@ import Register from "./components/Register";
 import ProfilePage from './pages/Profile';
 import Home from './pages/Home';
 import About from './pages/About';
+import Developments from './pages/Developments';
 import Questions from './components/questionList';
 import './pages/App.css';
 import StripeCheckoutForm from './pages/Donate';
@@ -54,7 +55,8 @@ function App() {
                         <Route exact path="/donate" component={StripeCheckoutForm} />
                         <Route exact path="/profile" component={ProfilePage} />
                         <Route exact path="/about" component={About} />
-                        
+                        <Route exact path="/developments" component={Developments} />
+
                         <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
                     </Switch>
                     <Footer />
