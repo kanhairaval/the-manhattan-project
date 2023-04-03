@@ -20,7 +20,12 @@ const userSchema = new Schema({
         required: true,
         minlength: 5,
       },
-        savedScores: [Score.schema]
+        savedScores: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Score',
+            },
+        ]
     });
 
 

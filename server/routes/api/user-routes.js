@@ -6,7 +6,7 @@ const {
   loginUser,
   logoutUser,
   donation,
-  saveScore,
+  // saveScore,
   // profilePage,
   // updateUser,
   // deleteUser,  

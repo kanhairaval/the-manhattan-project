@@ -30,4 +30,3 @@ export const GET_SCORES = gql`
         }
     }
 `;
-
