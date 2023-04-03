@@ -175,7 +175,7 @@ function Questions() {
         )}
         {showResults === false && ( <button type="submit">Submit</button> )}
         {showResults === true && ( <button type="button" onClick={handleRecalculate}>Recalculate</button> )}
-        {showResults === true && ( <button type="button" onClick={handleSave}>Save</button> )}
+        {showResults === true && ( <button className="saveBtn" type="button" onClick={handleSave}>Save</button> )}
       </div>
     </form>
     </section>
