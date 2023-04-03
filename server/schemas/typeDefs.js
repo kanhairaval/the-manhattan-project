@@ -29,6 +29,12 @@ const typeDefs = gql`
         created: Float!
         customer: Customer!
     }
+    
+    type Customer {
+        name: String!
+        email: String!
+        phone: String
+    }
 
     type Query {
         me: User
