@@ -8,7 +8,7 @@ import "./App.css"; // import css file
 
 function HomePage() {
   return (
-    <div className="">
+    <div className="homeBody">
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
@@ -18,7 +18,6 @@ function HomePage() {
           <div className="row">
         
             <div className="col-md-12">
-              <div/>
                       <h3 className="main-hander">Earthify</h3>
                       <div className="underlne mx auto"></div>
                       <p>An environment calculator is a tool that enables individuals and businesses to measure their environmental impact. It allows users to input data such as energy consumption, waste generation, and transportation emissions, and then calculates the carbon footprint and other environmental metrics associated with these activities. This information can be used to identify areas where improvements can be made to reduce environmental impact and promote sustainability. The environment calculator is an important tool in the fight against climate change and the promotion of eco-friendly practices.</p>
