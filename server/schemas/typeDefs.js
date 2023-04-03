@@ -6,7 +6,7 @@ const typeDefs = gql`
         name: String
         email: String
         password: String
-        savedScores: [Score]
+        score: [Score]
     }
     type Auth {
         token: ID!
