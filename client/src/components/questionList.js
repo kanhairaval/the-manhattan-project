@@ -126,6 +126,16 @@ function Questions() {
         questionData[2].description = "How many kilograms (kg) of meat do you consume in a month?";
       }
 
+      function handleSave() {
+        const data = {
+          kilowattConsumption,
+          fuelConsumption,
+          meatConsumption
+        };
+        localStorage.setItem('savedData', JSON.stringify(data));
+        alert('Data saved!');
+      }
+
   return (
     /* Display the current question */
     <section className="questionSection">
@@ -165,6 +175,7 @@ function Questions() {
         )}
         {showResults === false && ( <button type="submit">Submit</button> )}
         {showResults === true && ( <button type="button" onClick={handleRecalculate}>Recalculate</button> )}
+        {showResults === true && ( <button type="button" onClick={handleSave}>Save</button> )}
       </div>
     </form>
     </section>
