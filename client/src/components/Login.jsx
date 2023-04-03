@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Form, Button, Alert} from "react-bootstrap";
 import './css/login.css'
 import { useMutation } from "@apollo/client";
@@ -10,6 +10,7 @@ const Login = (props) => {
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [alertTimeoutId, setAlertTimeoutId] = useState(null);
     const history = useHistory();
     const[login] = useMutation(LOGIN_USER, {
         onCompleted: () => ({login : {token}}) => {
@@ -35,21 +36,31 @@ const Login = (props) => {
             Auth.login(data.login.token);
         }
         catch (e) {
-            console.error(e);
+            setShowAlert(true);
+            setAlertTimeoutId(setTimeout(() => setShowAlert(false), 3000));
         }
         setUserFormData({
             email: '',
             password: ''
         });
     };
-    
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(alertTimeoutId);
+        };
+    }, [alertTimeoutId]);
+
     return (
         <div className="auth-form-container">
             <h2 className="loginTitle">Login</h2>
+            {showAlert === true && (
+                <Alert onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+                Email and/or Password are Incorrect!
+                </Alert>
+            )}
             <Form className="login-form" validated={validated} onSubmit={handleFormSubmit}>
-            <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                Something went wrong with your login credentials!
-            </Alert>
+                
                 <Form.Group className="mb-b">
                     <Form.Label htmlFor="email">Email</Form.Label>
                     <Form.Control
@@ -78,7 +89,6 @@ const Login = (props) => {
                 type="submit">
                 Login</Button>
             </Form>
-            {/* <button className="link-btn" onClick={() => props.onFormSwitch("Register")}>Dont have an account? Register here!</button> */}
         </div>
     )
 }
