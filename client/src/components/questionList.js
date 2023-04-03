@@ -95,10 +95,15 @@ function Questions() {
         // Calculate trees needed to offset CO2 Kg value
         const trees = (co2kg / 100) * 1.7;
         console.log("Trees needed:", trees);
-      };      
+      };  
+      function handleNextQuestion() {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      }
+
 
   return (
     /* Display the current question */
+    <section className="questionSection">
     <form className="questionForm" onSubmit={handleSubmit}>
       <span className="questionTitle">{currentQuestion.title}</span>
       <p className="questionDescription">{currentQuestion.description}</p>
@@ -116,6 +121,7 @@ function Questions() {
         <button type="submit">Submit</button>
       </div>
     </form>
+    </section>
   );
 }
 
