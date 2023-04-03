@@ -6,6 +6,7 @@ export const CURRENT_USER = gql`
             _id
             name
             email
+            score
         }
     }
 `;
@@ -19,4 +20,6 @@ export const GET_USERS = gql`
         }
     }
 `;
+
+
 

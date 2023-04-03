@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import './css/questionList.css';
+import { useMutation } from "@apollo/client";
+import { SAVE_SCORE } from "../utils/mutations";
 
 const questionData = [
   {
@@ -26,6 +28,7 @@ function Questions() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
+    const [addScore, { error, data }] = useMutation(SAVE_SCORE);
   
     const currentQuestion = questionData[currentQuestionIndex];
   
@@ -91,6 +94,16 @@ function Questions() {
           // Question 3 - meatConsumption
           else if (questionData[currentQuestionIndex].type === "meatConsumption") {
             co2kg += parseFloat((meatConsumption * 19.22).toFixed(2));
+
+            // Save score to database
+            try {
+              const { data } = await addScore({
+                variables: { co2kg },
+              });
+            }
+            catch (err) {
+              console.error(err);
+            }
           }
         } catch (error) {
           console.error("Error fetching data from API:", error);
@@ -101,7 +114,7 @@ function Questions() {
         // Calculate trees needed to offset CO2 Kg value
         const trees = (co2kg / 100) * 1.7;
         console.log("Trees needed:", trees);
-      
+
         // Display result to the user
         if (currentQuestionIndex === questionData.length - 1) {
           alert(
@@ -112,6 +125,7 @@ function Questions() {
         }
       
         setCurrentQuestionIndex(currentQuestionIndex + 1);
+
       };                 
 
   return (

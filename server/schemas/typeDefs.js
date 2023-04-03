@@ -16,7 +16,7 @@ const typeDefs = gql`
 
     type Score {
         _id: ID
-        score: Int
+        score: String
         name: String
         createdAt: String
     }
@@ -47,6 +47,7 @@ const typeDefs = gql`
         addUser(name: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         createPaymentIntent(amount: Int!, currency: String!): PaymentIntent!
+        saveScore(score: Int!, name: String!): Score
     }
 `;
 
