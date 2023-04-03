@@ -116,17 +116,12 @@ function Questions() {
         console.log(currentQuestionIndex);
         console.log(questionData);
         }
-        return trees;
+        
+        // Save score to database
+
       };     
 
-      function saveScoreHandler() {
-        const trees = handleSubmit();
-        saveScore({
-          variables: {
-            score: trees,
-          },
-        });
-      }
+  
 
 
       const reloadPage = (event) => {

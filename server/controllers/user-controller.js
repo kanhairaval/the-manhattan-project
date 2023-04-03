@@ -1,4 +1,6 @@
 const {User} = require('../models/User');
+const {Score} = require('../models/Score');
+const {PaymentIntent} = require('../models/PaymentIntent');
 const {signToken} = require('../utils/auth');
 const {AuthenticationError} = require('apollo-server-express');
 const {UserInputError} = require('apollo-server-express');
@@ -97,7 +99,7 @@ module.exports = {
         try {
             const newScore = await Score.create(req.body);
             const user = await User.findOneAndUpdate(
-                { _id: req.user._id },
+                { _id: req.params._id },
                 { $push: { savedScores: newScore._id } },
                 { new: true }
             );

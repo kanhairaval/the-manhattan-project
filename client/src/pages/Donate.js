@@ -5,6 +5,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import { CREATE_PAYMENT_INTENT } from '../utils/mutations';
 import { CURRENT_USER } from '../utils/queries';
 import '../components/css/donate.css';
+import Auth from '../utils/auth';
 
 const stripePromise = loadStripe('pk_test_51MsSgMCbrULQn23mI6Wrnyh7PUeEOlYZOXELM9CNKGd7IOzXJQcufBHTDnOZrW7AFH1irs2JaCArUOYVsysgoXIk00gkxXDlV9');
 
@@ -76,6 +77,7 @@ const StripeCheckoutForm = () => {
         <div className="donate-container">
             <h1 className="donate-title">Donate!</h1>
             <Elements stripe={stripePromise}>
+                {Auth.loggedIn() && (
                 <form className="donate-form" onSubmit={handleSubmit}>
                 <div className="form-row">
                     <label className="form-label">
@@ -111,6 +113,8 @@ const StripeCheckoutForm = () => {
                     <button className="form-button" type="submit">Donate</button>
                 </div>
                 </form>
+                )}
+
                 {errorMessage && <p>{errorMessage}</p>}
             </Elements>
         </div>

@@ -1,4 +1,5 @@
-const { User, PaymentIntent } = require('../models/User');
+const { User} = require('../models/User');
+const { PaymentIntent } = require('../models/PaymentIntent');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
@@ -72,7 +73,7 @@ const userResolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
         
-        createPaymentIntent: async (parent, args, context) => {
+        createPaymentIntent: async (parent, args, context ) => {
             const { userId } = context;
             if (!userId) {
               throw new AuthenticationError('You must be logged in to create a PaymentIntent');

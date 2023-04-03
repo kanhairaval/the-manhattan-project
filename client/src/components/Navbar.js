@@ -19,13 +19,7 @@ function Header() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            {Auth.loggedIn() ? (
-              <Nav.Link href="/questions">Personal Calculator</Nav.Link>
-            ) : (
-              <>
-              </>
-            )}
-            
+                        
             <NavDropdown title="Resources" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/home#aboutUs">About Us</NavDropdown.Item>
               {Auth.loggedIn() ? (

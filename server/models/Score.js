@@ -5,10 +5,23 @@ const saveScoreSchema = new Schema({
     score: {
         type: Number,
         required: true,
-    },
-
+        unique: true,
+        trim: true,
+        },
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        },
+    createdAt: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        },
 });
 
-const SaveScore = model('SaveScore', saveScoreSchema);
+const Score = model('SaveScore', saveScoreSchema);
 
-module.exports = {SaveScore};
+module.exports = {Score};
