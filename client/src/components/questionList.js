@@ -116,6 +116,26 @@ function Questions() {
             }
           />
         )}
+        {currentQuestion.type === "fuelConsumption" && (
+          <input
+            placeholder={currentQuestion.sample}
+            type="text"
+            value={fuelConsumption}
+            onChange={(event) =>
+              setFuelConsumption(event.target.value)
+            }
+          />
+        )}
+        {currentQuestion.type === "meatConsumption" && (
+          <input
+            placeholder={currentQuestion.sample}
+            type="text"
+            value={meatConsumption}
+            onChange={(event) =>
+              setMeatConsumption(event.target.value)
+            }
+          />
+        )}
         <button type="submit">Submit</button>
       </div>
     </form>
