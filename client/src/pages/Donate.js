@@ -69,7 +69,7 @@ const StripeCheckoutForm = () => {
     }
 
     if (!me){
-        return <div>Must be logged in to donate</div>;
+        return <div>Must be logged in to donate!</div>;
     }
 
     return (
@@ -79,17 +79,17 @@ const StripeCheckoutForm = () => {
                 <form className="donate-form" onSubmit={handleSubmit}>
                 <div className="form-row">
                     <label className="form-label">
-                        Card number: 
+                        Card Number: 
                         <input placeholder="1111-2222-3333-4444" className="form-input" type="text" />
                     </label>
                     <label className="form-label">
-                        Expiration month: 
-                        <input placeholder="June" className="form-input" type="text" />
+                        Expiration Month: 
+                        <input placeholder="06" className="form-input" type="text" />
                     </label>
                 </div>
                 <div className="form-row">
                     <label className="form-label">
-                        Expiration year: 
+                        Expiration Year: 
                         <input placeholder="2025" className="form-input" type="text" />
                     </label>
                     <label className="form-label">
@@ -98,12 +98,12 @@ const StripeCheckoutForm = () => {
                     </label>
                 </div>
                     <label className="form-label">
-                        Zip code: 
+                        Zip Code: 
                         <input placeholder="M4S 1C1" className="form-input" type="text" />
                     </label>
                 <div className="form-row">
                     <label className="form-label">
-                        Amount: 
+                        Donation Amount: 
                         <input placeholder="$20" className="form-input" type="text" />
                     </label>
                 </div>
