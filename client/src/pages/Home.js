@@ -2,7 +2,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../components/Login';
 import Register from "../components/Register";
-import "pages/app.css"; // import css file
+<<<<<<< HEAD
+import "../app.css"; // import css file
+=======
+import "./App.css"; // import css file
+>>>>>>> c79c662d6cc3aa90095577a00426ef21a9145833
 // import { Link } from 'react-router-dom'; // add this line for link "about"
 
 function HomePage() {
@@ -22,7 +26,7 @@ function HomePage() {
                       <h3 className="main-hander">Earthify</h3>
                       <div className="underlne mx auto"></div>
                       <p> ya mum</p>
-                      <link to="/about" className="btn btn-warning shadow">Read More</link>
+                      {/* <link to="/about" className="btn btn-warning shadow">Read More</link> */}
                       <div>
                       </div>
                    </div>
