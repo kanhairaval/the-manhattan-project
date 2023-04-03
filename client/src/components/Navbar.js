@@ -29,8 +29,8 @@ function Header() {
 
             <NavDropdown title="Secret Stuff" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/about">About</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                What is the environment?
+              <NavDropdown.Item href="/developments">
+                Future Developments
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Make a difference</NavDropdown.Item>
               <NavDropdown.Divider />
