@@ -3,6 +3,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import Login from '../components/Login';
 import Register from "../components/Register";
 import "./App.css"; // import css file
+
 // import { Link } from 'react-router-dom'; // add this line for link "about"
 
 function HomePage() {
@@ -15,6 +16,7 @@ function HomePage() {
       <section className="section">
         <div className="container">
           <div className="row">
+        
             <div className="col-md-12">
               <div/>
                       <h3 className="main-hander">Earthify</h3>
