@@ -113,7 +113,24 @@ function Questions() {
         } else {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         }
-      };                 
+        return trees;
+      };     
+
+      const handleSaveScore = async (event) => {
+        event.preventDefault();
+        const trees = await handleSubmit(event);
+        try {
+          const { data } = await addScore({
+            variables: { score: trees },
+          });
+          console.log(data);
+        } catch (err) {
+          console.error(err);
+        }
+        window.location.href = "/profile";
+      };
+
+
 
   return (
     /* Display the current question */
@@ -154,6 +171,7 @@ function Questions() {
         )}
         {showResults === false && ( <button type="submit">Submit</button> )}
         {showResults === true && ( <button type="submit">Recalculate</button> )}
+        {showResults === true && ( <button type="submit" onClick={handleSaveScore}>Save Score</button> )}
       </div>
     </form>
     </section>
