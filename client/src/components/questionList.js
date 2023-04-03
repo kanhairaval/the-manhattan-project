@@ -95,16 +95,6 @@ function Questions() {
           // Question 3 - meatConsumption
           else if (questionData[currentQuestionIndex].type === "meatConsumption") {
             co2kg += parseFloat((meatConsumption * 19.22).toFixed(2));
-
-            // Save score to database
-            try {
-              const { data } = await addScore({
-                variables: { co2kg },
-              });
-            }
-            catch (err) {
-              console.error(err);
-            }
           }
         } catch (error) {
           console.error("Error fetching data from API:", error);
