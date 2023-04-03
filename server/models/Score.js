@@ -5,7 +5,7 @@ const saveScoreSchema = new Schema({
     score: {
         type: Number,
         required: true,
-    }
+    },
 
 });
 

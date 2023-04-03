@@ -31,7 +31,6 @@ export const SAVE_SCORE = gql`
             _id
             score
             name
-            createdAt
         }
     }
 `;

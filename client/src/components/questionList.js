@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './css/questionList.css';
 import { useMutation } from "@apollo/client";
+import { SAVE_SCORE } from "../utils/mutations";
 
 
 const questionData = [
@@ -30,6 +31,7 @@ function Questions() {
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
     const [meatConsumption, setMeatConsumption] = useState("");
+    const [saveScore] = useMutation(SAVE_SCORE);
   
     const currentQuestion = questionData[currentQuestionIndex];
   
@@ -116,6 +118,15 @@ function Questions() {
         }
         return trees;
       };     
+
+      function saveScoreHandler() {
+        const trees = handleSubmit();
+        saveScore({
+          variables: {
+            score: trees,
+          },
+        });
+      }
 
 
       const reloadPage = (event) => {
