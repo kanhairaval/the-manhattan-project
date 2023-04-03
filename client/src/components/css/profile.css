@@ -3,22 +3,37 @@
   background: #606c88;
   background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);
   background: linear-gradient(to right, #3f4c6b, #606c88);
-  /* align-items: center; */
-  }
+}
   
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileAlign {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
 .profileCard {
   background: -webkit-linear-gradient(to right, #3f6b43, #606c88);
   background: linear-gradient(to right, #3f6b59, #618860);
-  border: 10px;
-  width: 100%;
 }
 
-
-.accountInfo {
-  width:80%
+.account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
 }
 
 .card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50%;
 }
 
@@ -27,5 +42,4 @@
   background: linear-gradient(to right, #3f6b59, #618860);
   border: 10px;
   width: 100%;
-
 }
