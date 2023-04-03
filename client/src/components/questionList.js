@@ -101,6 +101,7 @@ function Questions() {
 
   return (
     /* Display the current question */
+    <section className="questionSection">
     <form className="questionForm" onSubmit={handleSubmit}>
       <span className="questionTitle">{currentQuestion.title}</span>
       <p className="questionDescription">{currentQuestion.description}</p>
@@ -118,6 +119,7 @@ function Questions() {
         <button type="submit">Submit</button>
       </div>
     </form>
+    </section>
   );
 }
 
