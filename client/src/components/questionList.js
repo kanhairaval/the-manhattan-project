@@ -33,25 +33,28 @@ function Questions() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+      
         let co2kg = 0;
-        
+      
         // Calculate CO2 Kg values for all questions
         try {
           // Question 1 - kilowattConsumption
           if (questionData[currentQuestionIndex].type === "kilowattConsumption") {
-            const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "x-rapidapi-host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
-                "x-rapidapi-key": "6b035cb9d9mshf6a8a37c35a7c76p1f7aa3jsnddcf12226516"
-              },
-              body: JSON.stringify({
-                "consumption": kilowattConsumption,
-                "location": "Canada"
-              })
-            });
+            const response = await fetch(
+              "https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-rapidapi-host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
+                  "x-rapidapi-key": "6b035cb9d9mshf6a8a37c35a7c76p1f7aa3jsnddcf12226516",
+                },
+                body: JSON.stringify({
+                  consumption: kilowattConsumption,
+                  location: "Canada",
+                }),
+              }
+            );
       
             const data = await response.json();
       
@@ -63,16 +66,19 @@ function Questions() {
           }
           // Question 2 - fuelConsumption
           else if (questionData[currentQuestionIndex].type === "fuelConsumption") {
-            const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?rapidapi-key=6b035cb9d9mshf6a8a37c35a7c76p1f7aa3jsnddcf12226516", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                "type": "Petrol",
-                "litres": fuelConsumption
-              })
-            });
+            const response = await fetch(
+              "https://tracker-for-carbon-footprint-api.p.rapidapi.com/fuelToCO2e?rapidapi-key=6b035cb9d9mshf6a8a37c35a7c76p1f7aa3jsnddcf12226516",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  type: "Petrol",
+                  litres: fuelConsumption,
+                }),
+              }
+            );
       
             const data = await response.json();
       
@@ -89,15 +95,24 @@ function Questions() {
         } catch (error) {
           console.error("Error fetching data from API:", error);
         }
-        
+      
         console.log("CO2 Kg value:", co2kg);
-        
+      
         // Calculate trees needed to offset CO2 Kg value
         const trees = (co2kg / 100) * 1.7;
         console.log("Trees needed:", trees);
       
+        // Display result to the user
+        if (currentQuestionIndex === questionData.length - 1) {
+          alert(
+            `Based on your carbon footprint of ${co2kg} Kg CO2 emissions, you would need to plant ${Math.ceil(
+              trees
+            )} trees to offset your emissions.`
+          );
+        }
+      
         setCurrentQuestionIndex(currentQuestionIndex + 1);
-      };            
+      };                 
 
   return (
     /* Display the current question */
