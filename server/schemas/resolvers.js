@@ -35,6 +35,7 @@ const userResolvers = {
             };
         },
     },
+
     Mutation: {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
@@ -56,6 +57,18 @@ const userResolvers = {
             return {token, user};
         },
 
+        saveScore: async (parent, args, context) => {
+            if (context.user) {
+                const updatedUser = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { savedScores: args } },
+                    { new: true }
+                );
+                return updatedUser;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        
         createPaymentIntent: async (parent, args, context) => {
             const { userId } = context;
             if (!userId) {

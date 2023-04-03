@@ -19,6 +19,7 @@ import Questions from './components/questionList';
 import './pages/App.css';
 import StripeCheckoutForm from './pages/Donate';
 
+
   
   
 const httpLink = createHttpLink({

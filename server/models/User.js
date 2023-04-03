@@ -38,6 +38,12 @@ const PaymentIntentSchema = new Schema({
     }
 });
 
+const saveScoreSchema = new Schema({
+    score: Number,
+    name: String,
+    createdAt: String,
+});
+
 
 userSchema.pre('save', async function(next) {
     if (this.isNew || this.isModified('password')) {
