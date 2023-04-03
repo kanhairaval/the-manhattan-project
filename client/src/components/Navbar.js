@@ -1,7 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Link from 'react-router-dom';
 import React from 'react';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Auth from '../utils/auth';
@@ -15,6 +14,7 @@ function Header() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
+        <img style={{ width: "70px", height: "auto" }} alt="hero" src={require('../images/logo.png')}/>
         <Navbar.Brand href="home">Earthify</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -39,7 +39,6 @@ function Header() {
               ) : (
                 <NavDropdown.Item href="/login">Donate!</NavDropdown.Item>
               )}
-              <NavDropdown.Divider />
             </NavDropdown>
           </Nav>
           <Nav>
