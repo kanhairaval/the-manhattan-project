@@ -69,3 +69,7 @@
   border: none;
   outline: none;
 }
+
+.saveBtn {
+  margin-left: 150px;
+}
