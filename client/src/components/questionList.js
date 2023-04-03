@@ -33,9 +33,9 @@ function Questions() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-      
+        
         let co2kg = 0;
-      
+        
         // Calculate CO2 Kg values for all questions
         try {
           // Question 1 - kilowattConsumption
@@ -89,16 +89,19 @@ function Questions() {
         } catch (error) {
           console.error("Error fetching data from API:", error);
         }
-      
+        
         console.log("CO2 Kg value:", co2kg);
-      
+        
         // Calculate trees needed to offset CO2 Kg value
         const trees = (co2kg / 100) * 1.7;
         console.log("Trees needed:", trees);
-      };      
+      
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      };            
 
   return (
     /* Display the current question */
+    <section className="questionSection">
     <form className="questionForm" onSubmit={handleSubmit}>
       <span className="questionTitle">{currentQuestion.title}</span>
       <p className="questionDescription">{currentQuestion.description}</p>
@@ -113,9 +116,30 @@ function Questions() {
             }
           />
         )}
+        {currentQuestion.type === "fuelConsumption" && (
+          <input
+            placeholder={currentQuestion.sample}
+            type="text"
+            value={fuelConsumption}
+            onChange={(event) =>
+              setFuelConsumption(event.target.value)
+            }
+          />
+        )}
+        {currentQuestion.type === "meatConsumption" && (
+          <input
+            placeholder={currentQuestion.sample}
+            type="text"
+            value={meatConsumption}
+            onChange={(event) =>
+              setMeatConsumption(event.target.value)
+            }
+          />
+        )}
         <button type="submit">Submit</button>
       </div>
     </form>
+    </section>
   );
 }
 
