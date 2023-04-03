@@ -2,6 +2,7 @@
   "name": "themanhattanproject",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://the-manhattan-project.herokuapp.com/home",
   "main": "server/server.js",
   "scripts": {
     "start": "cd server && npm start && cd client && npm start",
