@@ -18,9 +18,17 @@ function Header() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
+            {Auth.loggedIn() ? (
+            <>
             <Nav.Link href="/questions">Personal Calculator</Nav.Link>
+            </>
+            ) : (
+              <>
+              </>
+            )}
+
             <NavDropdown title="Secret Stuff" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">How you are able to help</NavDropdown.Item>
+              <NavDropdown.Item href="/about">About</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 What is the environment?
               </NavDropdown.Item>
@@ -32,10 +40,7 @@ function Header() {
             {Auth.loggedIn() ? (
               <>
                 <Nav.Link href="/profile">Profile</Nav.Link>
-                <Nav.Link >
-                <button className="" onClick={logout}>Logout
-                </button>
-                </Nav.Link>
+                <Nav.Link href="/home" onClick={logout}>Logout</Nav.Link>
               </>
             ) : (
               <>

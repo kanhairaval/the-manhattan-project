@@ -12,7 +12,7 @@ import Footer from './components/footer';
 import Login from './components/Login';
 import Register from "./components/Register";
 import ProfilePage from './pages/Profile';
-import Home from './pages/Pages';
+import Home from './pages/Home';
 import Questions from './components/questionList';
 import './pages/App.css';
 import StripeCheckoutForm from './pages/Donate';
