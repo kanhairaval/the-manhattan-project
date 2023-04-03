@@ -3,6 +3,9 @@ import './css/questionList.css';
 import { useMutation } from "@apollo/client";
 import { SAVE_SCORE } from "../utils/mutations";
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const questionData = [
   {
@@ -147,7 +150,22 @@ function Questions() {
 
   return (
     /* Display the current question */
-    <section className="questionSection">
+    <Container className="questionSection">    
+    <section>
+    <Row>
+    <Col>
+      <h3 id="aboutUs">Personal Carbon Footprint Calculator</h3>
+      <div ></div>
+      <p>
+      Our company is dedicated to helping people reduce their carbon footprint and create a more sustainable future for our planet. 
+      Our interactive carbon footprint calculator will guide you through a few questions about your energy and resource consumption habits, providing you with an estimate of your carbon emissions. 
+      The calculator then recommends actions you can take to reduce your carbon footprint and offset your emissions through tree planting. 
+      Our platform utilizes APIs to calculate carbon emissions based on kilowatt-hours of electricity, fuel consumption, and meat consumption. 
+      Our team is committed to using technology to promote environmental sustainability and encourage positive changes in behavior to protect our planet for generations to come. 
+      Join us in our mission to create a more sustainable world.
+      </p>
+    </Col>
+    <Col className="formAlign">
     <form className="questionForm" onSubmit={handleSubmit}>
       <span className="questionTitle">{currentQuestion.title}</span>
       <p className="questionDescription">{currentQuestion.description}</p>
@@ -187,7 +205,17 @@ function Questions() {
         {showResults === true && ( <button type="submit"onClick={handleSaveScore}>Save Score</button> )}
       </div>
     </form>
+    </Col>
+    </Row>
     </section>
+
+    <div className="logo">
+      <img
+        style={{ width: "300px"}} 
+        alt="logo" 
+        src={require('../images/logo.png')}/>
+    </div>
+    </Container>
   );
 }
 
