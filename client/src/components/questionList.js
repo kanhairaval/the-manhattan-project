@@ -31,7 +31,18 @@ function Questions() {
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
     const [meatConsumption, setMeatConsumption] = useState("");
-    const [saveScore] = useMutation(SAVE_SCORE);
+    const [saveScore] = useMutation(SAVE_SCORE, {
+      update(cache, { data: { saveScore } }) {
+        try {
+          cache.writeQuery({
+            query: SAVE_SCORE,
+            data: { saveScore: saveScore },
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    });
   
     const currentQuestion = questionData[currentQuestionIndex];
   
@@ -116,13 +127,19 @@ function Questions() {
         console.log(currentQuestionIndex);
         console.log(questionData);
         }
-        
-        // Save score to database
-
       };     
-
   
+      const handleSaveScore = async (event) => {
+        event.preventDefault();
 
+        try {
+          await saveScore({
+            variables: { score: questionData[currentQuestionIndex].type },
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      };
 
       const reloadPage = (event) => {
         window.location.reload();
@@ -167,7 +184,7 @@ function Questions() {
         )}
         {showResults === false && ( <button type="submit">Submit</button> )}
         {showResults === true && ( <button type="submit" onClick={reloadPage}>Recalculate</button> )}
-        {showResults === true && ( <button type="submit">Save Score</button> )}
+        {showResults === true && ( <button type="submit"onClick={handleSaveScore}>Save Score</button> )}
       </div>
     </form>
     </section>
