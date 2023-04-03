@@ -42,10 +42,6 @@
   margin-bottom: 20px;
 }
 
-.register-form input::placeholder {
-  color: rgb(216, 212, 212);
-}
-
 .register-form input:focus {
   border: 1px solid rgb(99 102 241);
 }

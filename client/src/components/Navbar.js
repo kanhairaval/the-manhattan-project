@@ -20,20 +20,25 @@ function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             {Auth.loggedIn() ? (
-            <>
-            <Nav.Link href="/questions">Personal Calculator</Nav.Link>
-            </>
+              <Nav.Link href="/questions">Personal Calculator</Nav.Link>
             ) : (
               <>
               </>
             )}
-
-            <NavDropdown title="Secret Stuff" id="collasible-nav-dropdown">
+            
+            <NavDropdown title="Resources" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/about">About</NavDropdown.Item>
-              <NavDropdown.Item href="/developments">
-                Future Developments
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Make a difference</NavDropdown.Item>
+              {Auth.loggedIn() ? (
+                <NavDropdown.Item href="/questions">Personal Calculator</NavDropdown.Item>
+              ) : (
+                <NavDropdown.Item href="/login">Personal Calculator</NavDropdown.Item>
+              )}
+
+              {Auth.loggedIn() ? (
+                <NavDropdown.Item href="/donate">Donate!</NavDropdown.Item>
+              ) : (
+                <NavDropdown.Item href="/login">Donate!</NavDropdown.Item>
+              )}
               <NavDropdown.Divider />
             </NavDropdown>
           </Nav>
@@ -49,8 +54,6 @@ function Header() {
               <Nav.Link href="/register">Register</Nav.Link>
               </>
             )}
-            <Nav.Link eventKey={2} href="/donate">Donate!
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

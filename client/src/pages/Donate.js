@@ -4,6 +4,7 @@ import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import { CREATE_PAYMENT_INTENT } from '../utils/mutations';
 import { CURRENT_USER } from '../utils/queries';
+import '../components/css/donate.css';
 
 const stripePromise = loadStripe('pk_test_51MsSgMCbrULQn23mI6Wrnyh7PUeEOlYZOXELM9CNKGd7IOzXJQcufBHTDnOZrW7AFH1irs2JaCArUOYVsysgoXIk00gkxXDlV9');
 
@@ -72,29 +73,43 @@ const StripeCheckoutForm = () => {
     }
 
     return (
-        <div>
-            <h1>Donate</h1>
+        <div className="donate-container">
+            <h1 className="donate-title">Donate!</h1>
             <Elements stripe={stripePromise}>
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Card number: <input type="text" />
+                <form className="donate-form" onSubmit={handleSubmit}>
+                <div className="form-row">
+                    <label className="form-label">
+                        Card number: 
+                        <input placeholder="1111-2222-3333-4444" className="form-input" type="text" />
                     </label>
-                    <label>
-                        Expiration month: <input type="text" />
+                    <label className="form-label">
+                        Expiration month: 
+                        <input placeholder="June" className="form-input" type="text" />
                     </label>
-                    <label>
-                        Expiration year: <input type="text" />
+                </div>
+                <div className="form-row">
+                    <label className="form-label">
+                        Expiration year: 
+                        <input placeholder="2025" className="form-input" type="text" />
                     </label>
-                    <label>
-                        CVC: <input type="text" />
+                    <label className="form-label">
+                        CVC: 
+                        <input placeholder="727" className="form-input" type="text" />
                     </label>
-                    <label>
-                        Zip code: <input type="text" />
+                </div>
+                    <label className="form-label">
+                        Zip code: 
+                        <input placeholder="M4S 1C1" className="form-input" type="text" />
                     </label>
-                    <label>
-                        Amount: <input type="text" />
+                <div className="form-row">
+                    <label className="form-label">
+                        Amount: 
+                        <input placeholder="$20" className="form-input" type="text" />
                     </label>
-                    <button type="submit">Donate</button>
+                </div>
+                <div className="form-row">
+                    <button className="form-button" type="submit">Donate</button>
+                </div>
                 </form>
                 {errorMessage && <p>{errorMessage}</p>}
             </Elements>

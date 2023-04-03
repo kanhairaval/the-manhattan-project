@@ -1,20 +1,24 @@
 .questionSection{
-  margin: 3rem;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  background: #606c88;
+  background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);
+  background: linear-gradient(to right, #3f4c6b, #606c88);
+  padding: 20px;
   align-items: center;
 }
 
 .questionForm {
-    display: flex;
-    flex-direction: column;
-    background: #606c88;
-    background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);
-    background: linear-gradient(to right, #3f4c6b, #606c88);
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 350px;
-  }
+  display: flex;
+  flex-direction: column;
+  background: #606c88;
+  background: -webkit-linear-gradient(to right, #3f6b43, #606c88);
+  background: linear-gradient(to right, #3f6b59, #618860);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 350px;
+}
   
 .questionTitle {
   font-size: 2rem;
