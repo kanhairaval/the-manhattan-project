@@ -30,24 +30,33 @@ function Questions() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Make the API request with the user's input
-    const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-rapidapi-key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16",
-        "x-rapidapi-host": "tracker-for-carbon-footprint-api.p.rapidapi.com"
-      },
-      body: JSON.stringify({
-        "consumption": kilowattConsumption,
-        "location": "Canada"
-      })
-    });
-
-    const data = await response.json();
-    console.log(data);
-  };
+  
+    try {
+      const response = await fetch("https://tracker-for-carbon-footprint-api.p.rapidapi.com/traditionalHydro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-rapidapi-host": "tracker-for-carbon-footprint-api.p.rapidapi.com",
+          "x-rapidapi-key": "9c4f117a05mshc12c5f4b819c371p1f3d05jsnb17df03aee16"
+        },
+        body: JSON.stringify({
+          "consumption": kilowattConsumption,
+          "location": "Canada"
+        })
+      });
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        const carbonValue = data.carbon.split(" ")[0];
+        console.log("Carbon value:", carbonValue);
+      } else {
+        console.error("API call failed");
+      }
+    } catch (error) {
+      console.error("Error fetching data from API:", error);
+    }
+  };  
 
   return (
     /* Display the current question */
