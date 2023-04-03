@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import './css/questionList.css';
-import { useMutation } from "@apollo/client";
-import { SAVE_SCORE } from "../utils/mutations";
 
 const questionData = [
   {
@@ -29,12 +27,10 @@ function Questions() {
     const [showResults, setShowResults] = useState(false);
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
-    const [addScore, { error, data }] = useMutation(SAVE_SCORE);
-  
-    const currentQuestion = questionData[currentQuestionIndex];
-  
     const [meatConsumption, setMeatConsumption] = useState("");
 
+    let currentQuestion = questionData[currentQuestionIndex];
+  
     const handleSubmit = async (event) => {
         event.preventDefault();
       
@@ -95,16 +91,6 @@ function Questions() {
           // Question 3 - meatConsumption
           else if (questionData[currentQuestionIndex].type === "meatConsumption") {
             co2kg += parseFloat((meatConsumption * 19.22).toFixed(2));
-
-            // Save score to database
-            try {
-              const { data } = await addScore({
-                variables: { co2kg },
-              });
-            }
-            catch (err) {
-              console.error(err);
-            }
           }
         } catch (error) {
           console.error("Error fetching data from API:", error);
@@ -117,13 +103,28 @@ function Questions() {
         console.log("Trees needed:", trees);
       
         if (currentQuestionIndex === questionData.length - 1) {
+          console.log(showResults);
           setShowResults(true);
           currentQuestion.title = "Your Results";
           currentQuestion.description = `Based on your carbon footprint of ${co2kg} Kg CO2 emissions, you would need to plant ${Math.ceil(trees)} trees to offset your emissions.`;
         } else {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
+        console.log(currentQuestionIndex);
+        console.log(questionData);
         }
-      };                 
+      };       
+      
+      function handleRecalculate() {
+        // Reset the currentQuestion array to its initial value
+        setCurrentQuestionIndex(0);
+        setShowResults(false);
+        currentQuestion = questionData[currentQuestionIndex];
+        setKilowattConsumption("");
+        setMeatConsumption("");
+        setFuelConsumption("");
+        questionData[2].title = "Question 3";
+        questionData[2].description = "How many kilograms (kg) of meat do you consume in a month?";
+      }
 
   return (
     /* Display the current question */
@@ -163,7 +164,7 @@ function Questions() {
           />
         )}
         {showResults === false && ( <button type="submit">Submit</button> )}
-        {showResults === true && ( <button type="submit">Recalculate</button> )}
+        {showResults === true && ( <button type="button" onClick={handleRecalculate}>Recalculate</button> )}
       </div>
     </form>
     </section>
