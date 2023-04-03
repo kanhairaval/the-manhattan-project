@@ -3,10 +3,12 @@ import '../components/css/about.css';
 
 function About() {
     return (
+        <section className="about-container">
         <div className="about-container">
         <div className="about-info">
             <div className="about-name">About</div>
-            <div className="about-email">
+            <div className="underlne mx auto"></div>
+            <div className="about-desc">
                 Welcome to Earthify, the carbon tracking app that helps you reduce your environmental impact and support reforestation efforts worldwide. We believe that tracking your carbon footprint should be easy and accessible, and that everyone can make a difference by making simple changes in their daily lives.
 
                 Our app calculates your personal carbon footprint based on your lifestyle choices, such as your transportation, diet, energy consumption, and shopping habits. By inputting data such as your daily commute, your household energy use, and the type and quantity of food you consume, our app provides you with an estimate of your carbon emissions and their impact on the environment.
@@ -20,6 +22,7 @@ function About() {
                 Join us in the fight against climate change and support reforestation efforts around the world. Download Earthify today and start tracking your carbon footprint and tree planting progress!</div>
         </div>
         </div>
+        </section>
     );
     };
 

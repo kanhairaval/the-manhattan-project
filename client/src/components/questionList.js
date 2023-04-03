@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import './css/questionList.css';
+import { useMutation } from "@apollo/client";
+import { SAVE_SCORE } from "../utils/mutations";
 
 const questionData = [
   {
@@ -27,6 +29,7 @@ function Questions() {
     const [showResults, setShowResults] = useState(false);
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
+    const [addScore, { error, data }] = useMutation(SAVE_SCORE);
   
     const currentQuestion = questionData[currentQuestionIndex];
   
@@ -92,6 +95,16 @@ function Questions() {
           // Question 3 - meatConsumption
           else if (questionData[currentQuestionIndex].type === "meatConsumption") {
             co2kg += parseFloat((meatConsumption * 19.22).toFixed(2));
+
+            // Save score to database
+            try {
+              const { data } = await addScore({
+                variables: { co2kg },
+              });
+            }
+            catch (err) {
+              console.error(err);
+            }
           }
         } catch (error) {
           console.error("Error fetching data from API:", error);
