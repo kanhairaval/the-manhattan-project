@@ -31,3 +31,18 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.about-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.about-name{
+    color: rgb(65, 110, 95);
+    font-size: 26px;
+    display: flex;
+    padding: 100px;
+    justify-content: center;
+}
