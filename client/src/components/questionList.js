@@ -24,6 +24,7 @@ const questionData = [
 
 function Questions() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [showResults, setShowResults] = useState(false);
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
   
@@ -102,16 +103,13 @@ function Questions() {
         const trees = (co2kg / 100) * 1.7;
         console.log("Trees needed:", trees);
       
-        // Display result to the user
         if (currentQuestionIndex === questionData.length - 1) {
-          alert(
-            `Based on your carbon footprint of ${co2kg} Kg CO2 emissions, you would need to plant ${Math.ceil(
-              trees
-            )} trees to offset your emissions.`
-          );
-        }
-      
+          setShowResults(true);
+          currentQuestion.title = "Your Results";
+          currentQuestion.description = `Based on your carbon footprint of ${co2kg} Kg CO2 emissions, you would need to plant ${Math.ceil(trees)} trees to offset your emissions.`;
+        } else {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
+        }
       };                 
 
   return (
@@ -121,7 +119,7 @@ function Questions() {
       <span className="questionTitle">{currentQuestion.title}</span>
       <p className="questionDescription">{currentQuestion.description}</p>
       <div>
-        {currentQuestion.type === "kilowattConsumption" && (
+        {currentQuestion.type === "kilowattConsumption" && showResults === false && (
           <input
             placeholder={currentQuestion.sample}
             type="text"
@@ -131,7 +129,7 @@ function Questions() {
             }
           />
         )}
-        {currentQuestion.type === "fuelConsumption" && (
+        {currentQuestion.type === "fuelConsumption" && showResults === false && (
           <input
             placeholder={currentQuestion.sample}
             type="text"
@@ -141,7 +139,7 @@ function Questions() {
             }
           />
         )}
-        {currentQuestion.type === "meatConsumption" && (
+        {currentQuestion.type === "meatConsumption" && showResults === false && (
           <input
             placeholder={currentQuestion.sample}
             type="text"
@@ -151,7 +149,8 @@ function Questions() {
             }
           />
         )}
-        <button type="submit">Submit</button>
+        {showResults === false && ( <button type="submit">Submit</button> )}
+        {showResults === true && ( <button type="submit">Recalculate</button> )}
       </div>
     </form>
     </section>
