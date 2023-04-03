@@ -6,6 +6,8 @@
 .main-heading{
     color: rgb(65, 110, 95);
     font-size: 26px;
+    display: flex;
+    justify-content: center;
 }
 
 .underlne{
