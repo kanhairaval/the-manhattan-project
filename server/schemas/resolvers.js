@@ -19,6 +19,9 @@ const userResolvers = {
             }
             throw new AuthenticationError('Not logged in');
         },
+
+        
+
         paymentIntent: async (parent, args, context) => {
             const paymentIntent = await stripe.paymentIntents.retrieve(args.id);
             const user = await User.findById(paymentIntent.metadata.userId);

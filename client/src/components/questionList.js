@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import './css/questionList.css';
+import { useMutation } from "@apollo/client";
+import { SAVE_SCORE } from "../utils/mutations";
+
 
 const questionData = [
   {
@@ -28,8 +31,9 @@ function Questions() {
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
     const [meatConsumption, setMeatConsumption] = useState("");
-
-    let currentQuestion = questionData[currentQuestionIndex];
+    const [addScore, { error, data }] = useMutation(SAVE_SCORE);
+  
+    const currentQuestion = questionData[currentQuestionIndex];
   
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -112,28 +116,25 @@ function Questions() {
         console.log(currentQuestionIndex);
         console.log(questionData);
         }
-      };       
-      
-      function handleRecalculate() {
-        // Reset the currentQuestion array to its initial value
-        setCurrentQuestionIndex(0);
-        setShowResults(false);
-        currentQuestion = questionData[currentQuestionIndex];
-        setKilowattConsumption("");
-        setMeatConsumption("");
-        setFuelConsumption("");
-        questionData[2].title = "Question 3";
-        questionData[2].description = "How many kilograms (kg) of meat do you consume in a month?";
-      }
+        return trees;
+      };     
 
-      function handleSave() {
-        const data = {
-          kilowattConsumption,
-          fuelConsumption,
-          meatConsumption
-        };
-        localStorage.setItem('savedData', JSON.stringify(data));
-        alert('Data saved!');
+      const handleSaveScore = async (event) => {
+        event.preventDefault();
+        const trees = await handleSubmit(event);
+        try {
+          const { data } = await addScore({
+            variables: { score: trees },
+          });
+          console.log(data);
+        } catch (err) {
+          console.error(err);
+        }
+        window.location.href = "/profile";
+      };
+
+      const reloadPage = (event) => {
+        window.location.reload();
       }
 
   return (
@@ -174,8 +175,8 @@ function Questions() {
           />
         )}
         {showResults === false && ( <button type="submit">Submit</button> )}
-        {showResults === true && ( <button type="button" onClick={handleRecalculate}>Recalculate</button> )}
-        {showResults === true && ( <button className="saveBtn" type="button" onClick={handleSave}>Save</button> )}
+        {showResults === true && ( <button type="submit" onClick={reloadPage}>Recalculate</button> )}
+        {showResults === true && ( <button type="submit" onClick={handleSaveScore}>Save Score</button> )}
       </div>
     </form>
     </section>
