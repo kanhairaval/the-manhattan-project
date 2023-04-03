@@ -1,19 +1,13 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import Login from '../components/Login';
 import Register from "../components/Register";
-<<<<<<< HEAD
-import "../app.css"; // import css file
-=======
 import "./App.css"; // import css file
->>>>>>> c79c662d6cc3aa90095577a00426ef21a9145833
 // import { Link } from 'react-router-dom'; // add this line for link "about"
 
 function HomePage() {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold mb-4">Welcome to My MERN SPA!</h1>
-      <h2 className="text-2xl mb-8">This is the home page.</h2>
+    <div className="">
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
@@ -26,7 +20,7 @@ function HomePage() {
                       <h3 className="main-hander">Earthify</h3>
                       <div className="underlne mx auto"></div>
                       <p> ya mum</p>
-                      {/* <link to="/about" className="btn btn-warning shadow">Read More</link> */}
+                      <Link to="/about" className="btn btn-warning shadow">Read More</Link>
                       <div>
                       </div>
                    </div>
