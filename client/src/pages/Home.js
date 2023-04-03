@@ -28,7 +28,6 @@ function HomePage() {
                   alt="hero" 
                   src={require('../images/homepagehero.jpeg')}/>
                 </div>
-              {/* <Link to="/about" className="btn btn-warning shadow">Read More</Link> */}
             </div>
           </div>
         </div>
@@ -42,7 +41,6 @@ function HomePage() {
       </div>
 
       {/*Our vision, mission and values*/}
-      {/* bookmark */}
       <div className="section">
         <div className="container">
           <div className="col-md-12">
