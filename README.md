@@ -1,25 +1,55 @@
 # Earthify
 
-This web application calculates your carbon footprint based on your fuel usage, meat consumption, and electricity usage. It also estimates how many trees would be required to offset that carbon footprint. The application is built using the MERN stack and written in JavaScript.
+Earthify is a web application that allows users to calculate their carbon footprint and provides tips on how to reduce it. By using the latest scientific data, Earthify provides users with an accurate estimate of their carbon emissions based on their daily activities such as transportation, energy consumption, and waste production.
+
+## Motivation
+
+The Earth is facing an urgent climate crisis, and individual actions can make a big impact on reducing carbon emissions. However, many people are unsure about how their daily choices affect the environment and how they can make a difference. Earthify was developed to provide a user-friendly tool that helps people understand their carbon footprint and take action to reduce it.
+
+## Deployment
+
+You can access the deployed version of Earthify at
+
+## Features
+
+Calculates your carbon footprint based on your daily activities
+
+Provides personalized tips to reduce your carbon emissions
+
+Offers an easy-to-use interface for users of all ages and backgrounds
+
+Uses the latest scientific data to provide accurate estimates
+
+Allows users to track their progress over time
+
+## Technologies Used
+
+HTML, CSS, and JavaScript for the frontend
+
+Node.js and Express for the backend
+
+MongoDB for data storage
+
+Chart.js for data visualization
+
+Heroku for deployment
 
 ## Installation
 
-Visit the deployed URL here:
+To run Earthify on your local machine, follow these steps:
 
-## Usage
+Clone the repository
 
-To use the application, follow these steps:
+Install dependencies using npm install
 
-Enter your fuel usage, meat consumption, and electricity usage in the input fields
+Create a .env file with your MongoDB URI and a secret key for JWT token
 
-Click on the "Calculate" button to calculate your carbon footprint and the number of trees required to offset it
+Start the server using npm start
 
-View the results on the screen
+## Contributors
 
-## Credits
-
-This application was built by Aidan Reynolds, Mario Trigueros, Semir Seper & Kanhai Raval as a project for UofT Bootcamp.
+Earthify was developed by Aidan Reynolds, Semir Seper, Mario Trigueros & Kanhai Raval as part of a capstone project for the UofT full stack software developer bootcamp. Contributions are welcome and can be submitted via pull requests on GitHub.
 
 ## License
 
-This application is licensed under the MIT License.
+This project is licensed under the MIT License. See the LICENSE file for details.
