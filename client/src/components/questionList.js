@@ -34,18 +34,7 @@ function Questions() {
     const [kilowattConsumption, setKilowattConsumption] = useState("");
     const [fuelConsumption, setFuelConsumption] = useState("");
     const [meatConsumption, setMeatConsumption] = useState("");
-    const [saveScore] = useMutation(SAVE_SCORE, {
-      update(cache, { data: { saveScore } }) {
-        try {
-          cache.writeQuery({
-            query: SAVE_SCORE,
-            data: { saveScore: saveScore },
-          });
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    });
+    const [saveScore] = useMutation(SAVE_SCORE);
   
     const currentQuestion = questionData[currentQuestionIndex];
   
