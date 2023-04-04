@@ -8,7 +8,7 @@ The Earth is facing an urgent climate crisis, and individual actions can make a 
 
 ## Deployment
 
-You can access the deployed version of Earthify at
+You can access the deployed version of Earthify at https://the-manhattan-project.herokuapp.com/
 
 ## Features
 
